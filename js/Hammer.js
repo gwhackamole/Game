@@ -2,13 +2,11 @@ function Hammer(pixiStage,board)
 {
     var self = this;
     this.board = board;
-    this.pixiHammer  = new PIXI.Sprite.fromImage('asset/hammer.jpg');
+    this.pixiHammer  = new PIXI.Sprite.fromImage('asset/Hammer.png');
     var ratio = this.pixiHammer.height / this.pixiHammer.width;
-    this.pixiHammer.height = 50;
-    this.pixiHammer.width = this.pixiHammer.height / ratio;
-    this.pixiHammer.alpha = 0.5;
+    this.pixiHammer.alpha = 0.1;
     this.hit = false;
-    this.setPosition(100, 50);
+    this.setPosition(310, 490);
     pixiStage.addChild(this.pixiHammer);
     setInterval(function(){self.activate()}, 4000);
 }
@@ -36,8 +34,8 @@ Hammer.prototype.activate = function(){
     setTimeout(
         function(){
           self.hit = false;
-          self.pixiHammer.alpha = 0.5;
-        },100);
+          self.pixiHammer.alpha = 0.1;
+        },200);
 };
 
 
