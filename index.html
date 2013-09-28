@@ -10,6 +10,8 @@
 		}
 	</style>
 	<script src="vendor/pixi.dev.js"></script>
+	
+	<script src="js/Board.js"></script>
 
 </head>
 <body>
@@ -24,32 +26,27 @@
 	// add the renderer view element to the DOM
 	document.body.appendChild(renderer.view);
 	
-	requestAnimFrame( animate );
+	requestAnimFrame(animate);
 	
-	// create a texture from an image path
-	var texture = PIXI.Texture.fromImage("bunny.png");
-	// create a new Sprite using the texture
-	var bunny = new PIXI.Sprite(texture);
+	var board = new Board(stage)
 	
-	// center the sprites anchor point
-	bunny.anchor.x = 0.5;
-	bunny.anchor.y = 0.5;
+	var previousTime = Date.now()
 	
-	// move the sprite t the center of the screen
-	bunny.position.x = 200;
-	bunny.position.y = 150;
-	
-	stage.addChild(bunny);
-	
-	function animate() {
-	
-	    requestAnimFrame( animate );
-	
-	    // just for fun, lets rotate mr rabbit a little
-	    bunny.rotation += 0.1;
+	function animate(time) {
+		var timeInSeconds = time * 0.001
+		var dt = timeInSeconds - previousTime
+		previousTime = time
+		
+		// clamp delta time to 1s, to avoid big frame jumps
+		if (dt > 1)
+			dt = 1
+		
+		board.update(timeInSeconds, dt)
 		
 	    // render the stage   
 	    renderer.render(stage);
+		
+	    requestAnimFrame( animate );
 	}
 
 	</script>
