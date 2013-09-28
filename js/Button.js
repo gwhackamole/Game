@@ -8,10 +8,10 @@ function Button( pixiStage, mole ){
   // create pixi object for button 
   var button = new PIXI.Sprite(t.off); 
   button.buttonMode = true;
-  button.anchor.x = 0.5;
-  button.anchor.y = 0.5;
-  button.position.x = 50;
-  button.position.y = 50;
+  button.anchor.x = 0;
+  button.anchor.y = 0;
+  button.position.x = 375;
+  button.position.y = 1120;
   button.interactive = true;
 
   button.mousedown = button.touchstart = function(){
@@ -23,8 +23,6 @@ function Button( pixiStage, mole ){
     mole.rise();
     this.setTexture(t.off);
   }
-
-
 
   // Add to pixi
 
