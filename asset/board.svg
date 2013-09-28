@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="800"
+   height="1280"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="board.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="132.121"
+     inkscape:cy="739.90194"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1440"
+     inkscape:window-height="852"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,227.63782)">
+    <rect
+       style="fill:#303030;fill-opacity:1;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3820"
+       width="1200.0613"
+       height="1177.8379"
+       x="-212.13203"
+       y="-91.787155"
+       transform="translate(0,-227.63782)"
+       rx="1.818"
+       ry="3" />
+    <rect
+       style="fill:#997d6f;fill-opacity:1;stroke:none"
+       id="rect2985"
+       width="645.71429"
+       height="471.42856"
+       x="85.714287"
+       y="-221.92352"
+       rx="2.125392"
+       ry="2.578125" />
+    <rect
+       style="fill:#4a4a46;fill-opacity:1;stroke:none"
+       id="rect3755"
+       width="800"
+       height="300"
+       x="0"
+       y="752.36218"
+       rx="1.818"
+       ry="3" />
+    <path
+       style="fill:#f2f2e9;fill-opacity:1;stroke:none"
+       d="m 82.60977,248.32159 654.79997,-4.04061 102.99637,508.81927 -2.89897,0.96028 -875.014256,0 -2.898973,-0.96028 z"
+       id="rect3757"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccc" />
+    <text
+       xml:space="preserve"
+       style="font-size:35.72061539px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Kefa;-inkscape-font-specification:Kefa"
+       x="136.93279"
+       y="-101.07589"
+       id="text3759"
+       sodipodi:linespacing="125%"
+       transform="scale(0.90383983,1.1063907)"><tspan
+         sodipodi:role="line"
+         id="tspan3761"
+         x="136.93279"
+         y="-101.07589"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Kefa;-inkscape-font-specification:Kefa">Time</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3763"
+       y="-101.07588"
+       x="460.96979"
+       style="font-size:35.72061539px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Kefa;-inkscape-font-specification:Kefa"
+       xml:space="preserve"
+       transform="scale(0.90383983,1.1063907)"><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Kefa;-inkscape-font-specification:Kefa"
+         y="-101.07588"
+         x="460.96979"
+         id="tspan3765"
+         sodipodi:role="line">Score</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:35.72061539px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="297.67554"
+       y="105.59337"
+       id="text3767"
+       sodipodi:linespacing="125%"
+       transform="scale(0.90383983,1.1063907)"><tspan
+         sodipodi:role="line"
+         id="tspan3769"
+         x="297.67554"
+         y="105.59337">Gwack-A-Mole</tspan></text>
+    <rect
+       style="fill:#4a4a46;fill-opacity:0.28630706;stroke:none"
+       id="rect3771"
+       width="113"
+       height="58.980507"
+       x="206.09387"
+       y="-152.61568"
+       rx="2.125392"
+       ry="1.7100251" />
+    <rect
+       ry="1.7100251"
+       rx="2.125392"
+       y="-152.61568"
+       x="513.96124"
+       height="58.980507"
+       width="113"
+       id="rect3775"
+       style="fill:#4a4a46;fill-opacity:0.28630706;stroke:none" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#4a4a46;fill-opacity:0.28630706;stroke:#000000;stroke-width:20.18166161;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path3777"
+       sodipodi:cx="397.14285"
+       sodipodi:cy="680.71429"
+       sodipodi:rx="217.14285"
+       sodipodi:ry="115"
+       d="m 614.28571,680.71429 a 217.14285,115 0 1 1 -434.28571,0 217.14285,115 0 1 1 434.28571,0 z"
+       transform="matrix(0.50051723,0,0,0.49053176,199.79459,149.16449)" />
+    <rect
+       style="fill:#4a4a46;fill-opacity:0.28630706;stroke:#000000;stroke-width:10;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3779"
+       width="131.31982"
+       height="107.07617"
+       x="353.55341"
+       y="1116.3553"
+       transform="translate(0,-227.63782)"
+       rx="1.818"
+       ry="3" />
+  </g>
+</svg>
