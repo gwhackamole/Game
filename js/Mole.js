@@ -81,7 +81,3 @@ Mole.prototype.recover = function() {
 Mole.prototype.isHittable = function() {
   return !this.isHidden && !this.knockedOut;
 };
-
-Mole.prototype.setPosition = function(x, y) {
-  this.pixiMole.position = new PIXI.Point(x, y);
-};
