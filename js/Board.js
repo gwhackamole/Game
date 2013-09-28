@@ -5,10 +5,10 @@ function Board(stage)
   this.moles = []
   this.buttons = []
   
-  /*var mole = new Mole(stage)
-  var button = new Button(stage, mole)
-  
+  var mole = new Mole(stage)
   this.moles.push(mole)
+  /*var button = new Button(stage, mole)
+
   this.buttons.push(button)*/
   
   this.score = 0
