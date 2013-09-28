@@ -30,6 +30,12 @@ function Board(stage)
   this.text.touchend = function(touchData)
   {
   }
+  
+  // background music
+  var audio = new Audio()
+  audio.src = "asset/gwhackamole.ogg"
+  audio.loop = true
+  audio.play()
 }
 
 Board.prototype.update = function(time, dt)
