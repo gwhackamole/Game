@@ -6,6 +6,5 @@ function createGameOver(){
   stage.addChild(gameOverText);
 
   return stage;
-  
 }
 

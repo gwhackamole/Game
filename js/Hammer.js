@@ -84,7 +84,7 @@ Hammer.prototype.activate = function(){
     var self = this;
     this.hit = true;
     this.pixiHammer.alpha = 1;
-    this.board.hit();
+    this.board.hit( this.position );
 
     setTimeout(
         function(){

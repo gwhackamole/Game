@@ -69,9 +69,9 @@ Board.prototype.update = function(time, dt)
   return this.score.time <= 0;
 }
 
-Board.prototype.hit = function(){
+Board.prototype.hit = function( position ){
     this.moles.filter(function(m){
-        return m.isHittable()
+        return m.isHittable() && distance( m.molePositions, position ) < 0.1;
     }).forEach(function(m){
         m.hit()
     })
