@@ -8,20 +8,21 @@ function Mole(pixiStage) {
   this.knockedOut = false;
   this.timeWhenHit = null;
 
-  var xPosition = 345;
-  var yPosition = 600;
+  var xPosition = 400;
+  var yPosition = 670;
   this.molePositions = {
     x: xPosition,
     yRisenPosition: yPosition,
     yHiddenPosition: yPosition + 100
   };
-  this.setPosition(xPosition, yPosition);
+  this.pixiMole.position = new PIXI.Point(xPosition, yPosition);
+  this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
 
   pixiStage.addChild(this.pixiMole);
 }
 
 Mole.prototype.update = function(time, dt) {
-  if (this.knockedOut && time - this.timeWhenHit >= 5) {
+  if (this.knockedOut && Date.now() * 0.001 - this.timeWhenHit >= 3) {
     this.recover();
   }
 
@@ -63,8 +64,8 @@ Mole.prototype.hit = function() {
     return false;
   }
   this.knockedOut = true;
-  this.timeWhenHit = time;
-  this.pixiMole.rotation = Math.PI / 2
+  this.timeWhenHit = Date.now() * 0.001;
+  this.pixiMole.rotation = Math.PI
   return true;
 };
 
@@ -78,7 +79,7 @@ Mole.prototype.recover = function() {
  * If the mole is currently hittable
  */
 Mole.prototype.isHittable = function() {
-  return this.isHidden && !this.knockedOut;
+  return !this.isHidden && !this.knockedOut;
 };
 
 Mole.prototype.setPosition = function(x, y) {
