@@ -10,6 +10,10 @@ function Hammer(pixiStage,board)
         x: 370,
         y: 490
     };
+    this.pixiHammer.anchor = {
+        x: 0.3,
+        y: 0.75
+    }
 
     this.position ={
        x : 0.5,
@@ -29,10 +33,6 @@ Hammer.prototype.update = function(time, dt) {
     this.pixiHammer.position = doTransform(this.position)
 };
 
-Hammer.prototype.setPosition = function(x,y){
-
-};
-
 function distance(a,b){
     var dx = b.x - a.x
     var dy = b.y - a.y
@@ -41,7 +41,7 @@ function distance(a,b){
 
 function vec2subtract(a, b)
 {
-    return  {x: a.x - b.y, y: a.y - b.y}
+    return  {x: a.x - b.x, y: a.y - b.y}
 }
 
 Hammer.prototype.getTargetedMole = function(){
