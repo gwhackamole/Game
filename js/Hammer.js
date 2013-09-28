@@ -72,8 +72,8 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
     var length = distance(nextMole.molePositions, this.position)
 
     var normalizedDirection = {
-        x: direction.x / length,
-        y: direction.y / length
+        x: direction.x / length || 0,
+        y: direction.y / length || 0
     }
 
     this.position.x += normalizedDirection.x * dt * this.speed;
