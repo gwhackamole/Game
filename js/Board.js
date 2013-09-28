@@ -3,13 +3,12 @@ function Board(stage)
 	/*this.hammer = new Hammer(stage)
 	
 	this.moles = []
-	this.buttons = []
-	
 	var mole = new Mole(stage)
+	this.moles.push(mole)*/
+        var mole = null ;
+	this.buttons = []
 	var button = new Button(stage, mole)
-	
-	this.moles.push(mole)
-	this.buttons.push(button)*/
+	this.buttons.push(button)
 	
 	this.score = 0
 	
