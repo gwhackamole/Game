@@ -14,9 +14,16 @@ function Button( pixiStage, mole ){
   button.position.y = 50;
   button.interactive = true;
 
-  button.mouseDown = button.touchStart = function(){
+  button.mousedown = button.touchstart = function(){
+    mole.hide();
     this.setTexture(t.on);
   };
+
+  button.mouseup = button.touchend  = function(){
+    mole.rise();
+    this.setTexture(t.off);
+  }
+
 
 
   // Add to pixi

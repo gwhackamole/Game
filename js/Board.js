@@ -10,7 +10,6 @@ function Board(stage)
   /*var button = new Button(stage, mole)
 
   this.buttons.push(button)*/
-  var mole = null ;
   this.buttons = []
   var button = new Button(stage, mole)
   this.buttons.push(button)
