@@ -78,7 +78,7 @@ Mole.prototype.recover = function() {
  * If the mole is currently hittable
  */
 Mole.prototype.isHittable = function() {
-  return this.isHidden && !this.knockedOut;
+  return !this.isHidden && !this.knockedOut;
 };
 
 Mole.prototype.setPosition = function(x, y) {
