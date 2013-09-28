@@ -33,12 +33,12 @@
   
   var board = new Board(stage)
   
-  var previousTime = Date.now()
+  var previousTime = Date.now() * 0.001
   
   function animate(time) {
     var timeInSeconds = time * 0.001
     var dt = timeInSeconds - previousTime
-    previousTime = time
+    previousTime = timeInSeconds
     
     // clamp delta time to 1s, to avoid big frame jumps
     if (dt > 1)
