@@ -1,6 +1,6 @@
 function Hammer(stage)
 {
-    var texture = PIXI.Texture.fromImage('img/hammer.jpg');
+    var texture = PIXI.Texture.fromImage('asset/hammer.jpg');
     var Hammer  = new PIXI.Sprite(texture);
     var state;
 }
