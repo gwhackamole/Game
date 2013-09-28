@@ -16,6 +16,7 @@
   <script src="js/Mole.js"></script>
   <script src="js/Hammer.js"></script>
   <script src="js/ScoreBoard.js"></script>
+  <script src="js/gameOver/stage.js"></script>
 </head>
 <body>
   <script>
@@ -23,7 +24,8 @@
   // create an new instance of a pixi stage
   var previousTime = 0;
   var interactive = true
-  var stage = new PIXI.Stage(0x66FF99, interactive);
+  var stage = new PIXI.Stage(0x000000, interactive);
+  var gameOver = createGameOver();
   
   // create a renderer instance
   var renderer = PIXI.autoDetectRenderer(800, 1280);
@@ -44,12 +46,12 @@
     if (dt > 1)
       dt = 1
     
-    board.update(timeInSeconds, dt)
-    
-      // render the stage   
-      renderer.render(stage);
-    
-      requestAnimFrame( animate );
+    var isGameEnd = board.update(timeInSeconds, dt);
+
+    // render the stage   
+    renderer.render( isGameEnd ? gameOver : stage );
+
+    requestAnimFrame( animate );
   }
   </script>
 

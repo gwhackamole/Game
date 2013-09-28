@@ -51,6 +51,8 @@ Board.prototype.update = function(time, dt)
   
   this.hammer.update(time, dt)
   this.score.update(time, dt)
+
+  return this.score.time <= 0;
 }
 
 Board.prototype.hit = function(){

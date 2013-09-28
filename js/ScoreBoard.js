@@ -1,6 +1,6 @@
 function ScoreBoard(pixiStage, board){
   this.score = 0;
-  this.time = 120;
+  this.time = 12;
 
   this.scoreText = new PIXI.Text(this.score.toFixed(0));
   this.scoreText.anchor.x = 1;
