@@ -2,10 +2,9 @@ function Board(stage)
 {
   var boardBG = PIXI.Texture.fromImage("asset/board.png");
   var board = new PIXI.Sprite(boardBG);
-  //this.hammer = new Hammer(stage)
+  this.hammer = new Hammer(stage,this)
   stage.addChild(board);
-  this.hammer = new Hammer(stage)
-  
+
   this.moles = []
   this.buttons = []
   
@@ -50,4 +49,12 @@ Board.prototype.update = function(time, dt)
   }
   
   this.hammer.update(time, dt)
+}
+
+Board.prototype.hit = function(){
+    this.moles.filter(function(m){
+        return m.isHittable()
+    }).forEach(function(m){
+            m.hit()
+        })
 }
