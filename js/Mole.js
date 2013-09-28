@@ -21,7 +21,7 @@ function Mole(pixiStage) {
 }
 
 Mole.prototype.update = function(time, dt) {
-  if (this.knockedOut && time - this.timeWhenHit >= 5) {
+  if (this.knockedOut && Date.now() * 0.001 - this.timeWhenHit >= 3) {
     this.recover();
   }
 
@@ -63,8 +63,8 @@ Mole.prototype.hit = function() {
     return false;
   }
   this.knockedOut = true;
-  this.timeWhenHit = time;
-  this.pixiMole.rotation = Math.PI / 2
+  this.timeWhenHit = Date.now() * 0.001;
+  this.pixiMole.rotation = Math.PI
   return true;
 };
 
