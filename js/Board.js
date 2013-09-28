@@ -14,7 +14,18 @@ function Board(stage)
 	this.score = 0
 	
 	this.text = new PIXI.Text("Whack it!")
+	this.text.setInteractive(true)
 	stage.addChild(this.text)
+	
+	this.text.touchstart = function(touchData)
+	{
+		stage.setBackgroundColor(0xff0000)
+	}
+	
+	this.text.touchend = function(touchData)
+	{
+		stage.setBackgroundColor(0x00ff00)
+	}
 }
 
 Board.prototype.update = function(time, dt)
