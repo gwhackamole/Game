@@ -1,22 +1,29 @@
-function Hammer(stage)
+function Hammer(pixiStage)
 {
-    var texture = PIXI.Texture.fromImage('asset/hammer.jpg');
-    var Hammer  = new PIXI.Sprite(texture);
-    var state;
+    this.pixiHammer  = new PIXI.Sprite.fromImage('asset/hammer.jpg');
+    this.state = null;
+    this.setPosition(150, 50);
+    pixiStage.addChild(this.pixiHammer);
 }
 
-Hammer.prototype.setPosition = function(coordx,coordy){
-    position.x = parseFloat(coordx);
-    position.y = parseFloat(coordy);
-}
+Hammer.prototype.update = function(time, dt) {
+    if (this.knockedOut && time - this.timeWhenHit >= 5) {
+        this.recover();
+    }
+};
+
+Hammer.prototype.setPosition = function(x,y){
+    this.pixiHammer.position.x = x;
+    this.pixiHammer.position.y = y;
+};
 
 Hammer.prototype.setStateInMove = function(){
     this.state = "inMove";
-}
+};
 
-Hammer.prototype.setStateBam = function(){
-    this.state = "bam";
-}
+Hammer.prototype.setStateHit = function(){
+    this.state = "hit";
+};
 
 
 
