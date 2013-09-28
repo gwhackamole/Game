@@ -1,5 +1,9 @@
 function Board(stage)
 {
+  var boardBG = PIXI.Texture.fromImage("asset/board.png");
+  var board = new PIXI.Sprite(boardBG);
+  //this.hammer = new Hammer(stage)
+  stage.addChild(board);
   this.hammer = new Hammer(stage)
   
   this.moles = []
@@ -7,9 +11,6 @@ function Board(stage)
   
   var mole = new Mole(stage)
   this.moles.push(mole)
-  /*var button = new Button(stage, mole)
-
-  this.buttons.push(button)*/
   this.buttons = []
   var button = new Button(stage, mole)
   this.buttons.push(button)
@@ -22,12 +23,12 @@ function Board(stage)
   
   this.text.touchstart = function(touchData)
   {
-    stage.setBackgroundColor(0xff0000)
+    //stage.setBackgroundColor(0xff0000)
   }
   
   this.text.touchend = function(touchData)
   {
-    stage.setBackgroundColor(0x00ff00)
+    //stage.setBackgroundColor(0x00ff00)
   }
 }
 
