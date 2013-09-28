@@ -1,14 +1,14 @@
 function Mole(pixiStage) {
   this.pixiMole = PIXI.Sprite.fromImage('assets/mole.png');
   var ratio = this.pixiMole.height / this.pixiMole.width;
-  this.pixiMole.height = 100;
+  this.pixiMole.height = 150;
   this.pixiMole.width = this.pixiMole.height / ratio;
 
   this.isHidden = false;
   this.knockedOut = false;
   this.timeWhenHit = null;
 
-  this.setPosition(100, 100);
+  this.setPosition(345, 600);
 
   pixiStage.addChild(this.pixiMole);
 }
