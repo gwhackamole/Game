@@ -11,7 +11,7 @@ function Board(stage)
   this.moles = []
   this.buttons = []
   
-  for (var i = 1; i <= 9; i++) {
+  for (var i = 1; i <= 2; i++) {
     var moleVirtualPosition = {
       x: i % 3 ? ((i + 1) % 3 ? 0.25 : 0.5) : 0.75,
       y: i <= 3 ? 0.25 : (i <= 6 ? 0.5 : 0.75)

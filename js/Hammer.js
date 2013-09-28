@@ -21,11 +21,11 @@ function Hammer(pixiStage,board)
 }
 
 Hammer.prototype.update = function(time, dt) {
-    //this.moveToClosestMole(dt)
-    //this.position.x = Math.cos(time)*0.5 + 0.5
     var m = this.getTargetedMole()
     if( !m ) return
-    this.position = m.molePositions;
+    this.moveToClosestMole(dt, m)
+    //var m =  this.moveToClosestMole(dt, m)
+    //this.position = m.molePositions;
     this.pixiHammer.position = doTransform(this.position)
 };
 
@@ -67,11 +67,9 @@ Hammer.prototype.getTargetedMole = function(){
     return closestMole;
 };
 
-Hammer.prototype.moveToClosestMole = function(dt){
-    //var nextMole =  this.getTargetedMole();
-
-    var direction = vec2subtract(nextMole, this.position)
-    var length = distance(nextMole, this.position)
+Hammer.prototype.moveToClosestMole = function(dt,nextMole){
+    var direction = vec2subtract(nextMole.molePositions, this.position)
+    var length = distance(nextMole.molePositions, this.position)
 
     var normalizedDirection = {
         x: direction.x / length,
@@ -80,10 +78,6 @@ Hammer.prototype.moveToClosestMole = function(dt){
 
     this.position.x += normalizedDirection.x * dt * this.speed;
     this.position.y += normalizedDirection.y * dt * this.speed;
-
-    /*var alpha = Math.atan2(nextMole.y-this.position,nextMole.x);
-    var targetX = distance * Math.cos(alpha);
-    var targetY = distance * Math.sin(alpha);*/
 }
 
 Hammer.prototype.activate = function(){
