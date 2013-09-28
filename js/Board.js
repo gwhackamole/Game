@@ -1,6 +1,6 @@
 function Board(stage)
 {
-  //this.hammer = new Hammer(stage)
+  this.hammer = new Hammer(stage)
   
   this.moles = []
   this.buttons = []
@@ -48,5 +48,5 @@ Board.prototype.update = function(time, dt)
     this.moles[i].update(time, dt)
   }
   
-  //this.hammer.update(time, dt)
+  this.hammer.update(time, dt)
 }
