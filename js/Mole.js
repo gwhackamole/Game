@@ -1,5 +1,5 @@
 function Mole(pixiStage) {
-  this.pixiMole = PIXI.Sprite.fromImage('assets/mole.png');
+  this.pixiMole = PIXI.Sprite.fromImage('asset/mole.png');
   var ratio = this.pixiMole.height / this.pixiMole.width;
   this.pixiMole.height = 150;
   this.pixiMole.width = this.pixiMole.height / ratio;
@@ -80,8 +80,4 @@ Mole.prototype.recover = function() {
  */
 Mole.prototype.isHittable = function() {
   return !this.isHidden && !this.knockedOut;
-};
-
-Mole.prototype.setPosition = function(x, y) {
-  this.pixiMole.position = new PIXI.Point(x, y);
 };
