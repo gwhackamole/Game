@@ -8,7 +8,14 @@ function Mole(pixiStage) {
   this.knockedOut = false;
   this.timeWhenHit = null;
 
-  this.setPosition(345, 600);
+  var xPosition = 345;
+  var yPosition = 600;
+  this.molePositions = {
+    x: xPosition,
+    yRisenPosition: yPosition,
+    yHiddenPosition: yPosition + 100
+  };
+  this.setPosition(xPosition, yPosition);
 
   pixiStage.addChild(this.pixiMole);
 }
@@ -17,10 +24,24 @@ Mole.prototype.update = function(time, dt) {
   if (this.knockedOut && time - this.timeWhenHit >= 5) {
     this.recover();
   }
-};
 
-Mole.prototype.render = function(first_argument) {
-  // body...
+  var moleYPosition = this.pixiMole.position.y;
+  var transitionDuration = 0.1; // seconds
+  if (!this.isHidden) {
+    if (moleYPosition !== this.molePositions.yRisenPosition) {
+      moleYPosition = moleYPosition - dt / transitionDuration *
+        (this.molePositions.yHiddenPosition - this.molePositions.yRisenPosition);
+      this.pixiMole.position.y = moleYPosition < this.molePositions.yRisenPosition ?
+        this.molePositions.yRisenPosition : moleYPosition;
+    }
+  } else {
+    if (moleYPosition !== this.molePositions.yHiddenPosition) {
+      moleYPosition = moleYPosition - dt / transitionDuration *
+        (this.molePositions.yRisenPosition - this.molePositions.yHiddenPosition);
+      this.pixiMole.position.y = moleYPosition > this.molePositions.yHiddenPosition ?
+        this.molePositions.yHiddenPosition : moleYPosition;
+   }
+  }
 };
 
 Mole.prototype.hide = function() {
