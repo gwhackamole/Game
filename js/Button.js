@@ -1,4 +1,4 @@
-function Button( pixiStage, mole ){
+function Button( pixiStage, mole, position ){
   // load texture
   var t = {
     on  : PIXI.Texture.fromImage("asset/btnOn.png"),
@@ -10,8 +10,8 @@ function Button( pixiStage, mole ){
   button.buttonMode = true;
   button.anchor.x = 0;
   button.anchor.y = 0;
-  button.position.x = 375;
-  button.position.y = 1120;
+  button.position.x = position.x;
+  button.position.y = position.y;
   button.interactive = true;
 
   button.mousedown = button.touchstart = function(){

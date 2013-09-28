@@ -1,4 +1,4 @@
-function Mole(pixiStage) {
+function Mole(pixiStage, virtualPosition) {
   this.pixiMole = PIXI.Sprite.fromImage('asset/mole.png');
   var ratio = this.pixiMole.height / this.pixiMole.width;
   this.pixiMole.height = 150;
@@ -8,14 +8,17 @@ function Mole(pixiStage) {
   this.knockedOut = false;
   this.timeWhenHit = null;
 
-  var xPosition = 400;
-  var yPosition = 670;
   this.molePositions = {
-    x: xPosition,
-    yRisenPosition: yPosition,
-    yHiddenPosition: yPosition + 100
+    x: virtualPosition.x,
+    y: virtualPosition.y,
+    yRisenPosition: virtualPosition.y, // Position of the mole when risen
+    yHiddenPosition: virtualPosition.y + 0.05 // Position of the mole when hidden
   };
-  this.pixiMole.position = new PIXI.Point(xPosition, yPosition);
+
+  var pixiPosition = doTransform(virtualPosition);
+  this.pixiMole.position = new PIXI.Point(
+    pixiPosition.x, pixiPosition.y
+  );
   this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
 
   pixiStage.addChild(this.pixiMole);
@@ -26,23 +29,32 @@ Mole.prototype.update = function(time, dt) {
     this.recover();
   }
 
-  var moleYPosition = this.pixiMole.position.y;
+  // The following block deals with the animated transitions when
+  // a mole goes up & down
+  var moleYPosition = this.molePositions.y;
   var transitionDuration = 0.1; // seconds
+  var newMoleYPosition;
   if (!this.isHidden) {
     if (moleYPosition !== this.molePositions.yRisenPosition) {
-      moleYPosition = moleYPosition - dt / transitionDuration *
+      newMoleYPosition = moleYPosition - dt / transitionDuration *
         (this.molePositions.yHiddenPosition - this.molePositions.yRisenPosition);
-      this.pixiMole.position.y = moleYPosition < this.molePositions.yRisenPosition ?
-        this.molePositions.yRisenPosition : moleYPosition;
+      this.molePositions.y = moleYPosition < this.molePositions.yRisenPosition ?
+        this.molePositions.yRisenPosition : newMoleYPosition;
     }
   } else {
     if (moleYPosition !== this.molePositions.yHiddenPosition) {
-      moleYPosition = moleYPosition - dt / transitionDuration *
+      newMoleYPosition = moleYPosition - dt / transitionDuration *
         (this.molePositions.yRisenPosition - this.molePositions.yHiddenPosition);
-      this.pixiMole.position.y = moleYPosition > this.molePositions.yHiddenPosition ?
-        this.molePositions.yHiddenPosition : moleYPosition;
+      this.molePositions.y = moleYPosition > this.molePositions.yHiddenPosition ?
+        this.molePositions.yHiddenPosition : newMoleYPosition;
    }
   }
+  var transformedPosition = doTransform({
+    x: this.molePositions.x,
+    y: this.molePositions.y
+  });
+  this.pixiMole.position.y = transformedPosition.y;
+
 };
 
 Mole.prototype.hide = function() {

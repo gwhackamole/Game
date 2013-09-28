@@ -53,6 +53,23 @@
 
     requestAnimFrame( animate );
   }
+
+  /**
+   * Takes an object with x, y as parameter
+   * And returns another object with x, y transformed
+   */
+  function doTransform(position) {
+    var originalPositions = {
+      x: 0,
+      y: 475,
+      width: 800,
+      height: 500
+    };
+    return {
+      x: position.x * originalPositions.width + originalPositions.x,
+      y: position.y * originalPositions.height + originalPositions.y,
+    };
+  }
   </script>
 
   </body>

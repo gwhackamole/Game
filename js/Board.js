@@ -11,14 +11,22 @@ function Board(stage)
   this.moles = []
   this.buttons = []
   
-  var mole = new Mole(stage)
-  this.moles.push(mole)
-  this.buttons = []
+  for (var i = 1; i <= 9; i++) {
+    var moleVirtualPosition = {
+      x: i % 3 ? ((i + 1) % 3 ? 0.25 : 0.5) : 0.75,
+      y: i <= 3 ? 0.25 : (i <= 6 ? 0.5 : 0.75)
+    }
+    var mole = new Mole(stage, moleVirtualPosition);
+    this.moles.push(mole)
 
-  var button = new Button(stage, mole)
-  this.buttons.push(button)
-  
-  
+    var buttonPosition = {
+      x: 100 + i * 60,
+      y: 1010
+    }
+    var button = new Button(stage, mole, buttonPosition);
+    this.buttons.push(button)
+  }
+
   this.text = new PIXI.Text("Whack it!")
   this.text.setInteractive(true)
   stage.addChild(this.text)
