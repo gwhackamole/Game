@@ -2,7 +2,10 @@ function Hammer(pixiStage)
 {
     this.pixiHammer  = new PIXI.Sprite.fromImage('asset/hammer.jpg');
     this.state = null;
-    this.setPosition(150, 50);
+    var ratio = this.pixiHammer.height / this.pixiHammer.width;
+    this.pixiHammer.height = 50;
+    this.pixiHammer.width = this.pixiHammer.height / ratio;
+    this.setPosition(100, 50);
     pixiStage.addChild(this.pixiHammer);
 }
 
