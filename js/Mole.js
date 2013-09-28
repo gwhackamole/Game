@@ -8,14 +8,15 @@ function Mole(pixiStage) {
   this.knockedOut = false;
   this.timeWhenHit = null;
 
-  var xPosition = 345;
-  var yPosition = 600;
+  var xPosition = 400;
+  var yPosition = 670;
   this.molePositions = {
     x: xPosition,
     yRisenPosition: yPosition,
     yHiddenPosition: yPosition + 100
   };
-  this.setPosition(xPosition, yPosition);
+  this.pixiMole.position = new PIXI.Point(xPosition, yPosition);
+  this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
 
   pixiStage.addChild(this.pixiMole);
 }
