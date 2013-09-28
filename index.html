@@ -1,54 +1,57 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-	<title>pixi.js example 1</title>
-	<style>
-		body {
-			margin: 0;
-			padding: 0;
-			background-color: #000000;
-		}
-	</style>
-	<script src="vendor/pixi.dev.js"></script>
-	<script src="js/Button.js"></script>
-	<script src="js/Board.js"></script>
+  <title>gwhackamole!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000000;
+    }
+  </style>
+  <script src="vendor/pixi.dev.js"></script>
+  
+  <script src="js/Board.js"></script>
+  <script src="js/Button.js"></script>
 
 </head>
 <body>
-	<script>
-	
-	// create an new instance of a pixi stage
-	var stage = new PIXI.Stage(0x66FF99);
-	
-	// create a renderer instance
-	var renderer = PIXI.autoDetectRenderer(1280, 720);
-	
-	// add the renderer view element to the DOM
-	document.body.appendChild(renderer.view);
-	
-	requestAnimFrame(animate);
-	
-	var board = new Board(stage)
-	var previousTime = Date.now()
-	
-	function animate(time) {
-            var timeInSeconds = time * 0.001
-            var dt = timeInSeconds - previousTime
-            previousTime = time
+  <script>
+  
+  // create an new instance of a pixi stage
+  var interactive = true
+  var stage = new PIXI.Stage(0x66FF99, interactive);
+  
+  // create a renderer instance
+  var renderer = PIXI.autoDetectRenderer(1280, 720);
+  
+  // add the renderer view element to the DOM
+  document.body.appendChild(renderer.view);
+  
+  requestAnimFrame(animate);
+  
+  var board = new Board(stage)
+  
+  var previousTime = Date.now()
+  
+  function animate(time) {
+    var timeInSeconds = time * 0.001
+    var dt = timeInSeconds - previousTime
+    previousTime = time
+    
+    // clamp delta time to 1s, to avoid big frame jumps
+    if (dt > 1)
+      dt = 1
+    
+    board.update(timeInSeconds, dt)
+    
+      // render the stage   
+      renderer.render(stage);
+    
+      requestAnimFrame( animate );
+  }
 
-            // clamp delta time to 1s, to avoid big frame jumps
-            if (dt > 1)
-            dt = 1
+  </script>
 
-            board.update(timeInSeconds, dt)
-
-	    // render the stage   
-	    renderer.render(stage);
-		
-	    requestAnimFrame( animate );
-	}
-
-	</script>
-
-	</body>
+  </body>
 </html>
