@@ -21,6 +21,7 @@
   <script>
   
   // create an new instance of a pixi stage
+  var previousTime = 0;
   var interactive = true
   var stage = new PIXI.Stage(0x66FF99, interactive);
   
@@ -31,7 +32,6 @@
   document.body.appendChild(renderer.view);
   
   var board = new Board(stage)
-  var previousTime = Date.now() * 0.001;
 
   requestAnimFrame(animate);
 
