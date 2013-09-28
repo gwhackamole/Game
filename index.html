@@ -15,6 +15,7 @@
   <script src="js/Button.js"></script>
   <script src="js/Mole.js"></script>
   <script src="js/Hammer.js"></script>
+  <script src="js/ScoreBoard.js"></script>
 </head>
 <body>
   <script>
@@ -29,12 +30,11 @@
   // add the renderer view element to the DOM
   document.body.appendChild(renderer.view);
   
-  requestAnimFrame(animate);
-  
   var board = new Board(stage)
-  
-  var previousTime = Date.now() * 0.001
-  
+  var previousTime = Date.now() * 0.001;
+
+  requestAnimFrame(animate);
+
   function animate(time) {
     var timeInSeconds = time * 0.001
     var dt = timeInSeconds - previousTime
@@ -51,7 +51,6 @@
     
       requestAnimFrame( animate );
   }
-
   </script>
 
   </body>

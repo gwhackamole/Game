@@ -4,17 +4,20 @@ function Board(stage)
   var board = new PIXI.Sprite(boardBG);
   stage.addChild(board);
 
+  var score = this.score = new ScoreBoard(stage, this);
+
   this.hammer = new Hammer(stage,this)
+
   this.moles = []
   this.buttons = []
   
   var mole = new Mole(stage)
   this.moles.push(mole)
   this.buttons = []
+
   var button = new Button(stage, mole)
   this.buttons.push(button)
   
-  this.score = 0
   
   this.text = new PIXI.Text("Whack it!")
   this.text.setInteractive(true)
@@ -47,12 +50,19 @@ Board.prototype.update = function(time, dt)
   }
   
   this.hammer.update(time, dt)
+  this.score.update(time, dt)
 }
 
 Board.prototype.hit = function(){
     this.moles.filter(function(m){
         return m.isHittable()
     }).forEach(function(m){
-            m.hit()
-        })
+        m.hit()
+    })
+}
+
+Board.prototype.countScoringMoles = function(){
+    return this.moles.filter( function(m){ 
+        return !m.knockedOut && !m.isHidden;
+    }).length;
 }
