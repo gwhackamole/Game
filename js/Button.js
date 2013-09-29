@@ -28,9 +28,14 @@ function Button( pixiStage, mole, position ){
     this.setTexture(t.off);
   }
 
+  button.mouseout = button.touchend  = function(){
+     mole.rise();
+     this.setTexture(t.off);
+  }
 
 
-  // Add to pixi
+
+    // Add to pixi
 
   pixiStage.addChild( button );
 }
