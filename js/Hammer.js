@@ -91,8 +91,12 @@ Hammer.prototype.getTargetedMole = function(){
 };
 
 Hammer.prototype.moveToClosestMole = function(dt,nextMole){
-    var direction = vec2subtract(nextMole.molePositions, this.position)
-    var length = distance(nextMole.molePositions, this.position)
+    var molePosition = {
+      x: nextMole.molePositions.x,
+      y: nextMole.molePositions.yHiddenPosition,
+    }
+    var direction = vec2subtract(molePosition, this.position)
+    var length = distance(molePosition, this.position)
 
     var normalizedDirection = {
         x: direction.x / length || 0,
@@ -105,7 +109,10 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
 
     this.position.x += normalizedDirection.x * dt * (this.speed + modspeed(this.speed));
     this.position.y += normalizedDirection.y * dt * (this.speed + modspeed(this.speed));
-};
+    if (length < 0.03) { // FIXME, as the hammer trembles, length cannot === 0
+        setTimeout(this.activate.bind(this), 100);
+    }
+}
 
 Hammer.prototype.moveRandomly = function( dt, time ){
     var target = {
