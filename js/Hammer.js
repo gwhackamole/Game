@@ -19,18 +19,21 @@ function Hammer(pixiStage,board)
        x : 0.5,
        y : 0.5
     };
+
+    this.scoreSinceLastHit = 0;
     this.speed = 0.1;
     pixiStage.addChild(this.pixiHammer);
     setInterval(function(){self.activate()}, 4000);
 }
 
-Hammer.prototype.update = function(time, dt) {
+Hammer.prototype.update = function(time, dt, score) {
     var m = this.getTargetedMole()
     if( !m ) return
     this.moveToClosestMole(dt, m)
     //var m =  this.moveToClosestMole(dt, m)
     //this.position = m.molePositions;
     this.pixiHammer.position = doTransform(this.position)
+    this.scoreSinceLastHit += score;
 };
 
 function distance(a,b){
@@ -84,7 +87,10 @@ Hammer.prototype.activate = function(){
     var self = this;
     this.hit = true;
     this.pixiHammer.alpha = 1;
-    this.board.hit( this.position );
+    var hasHit = this.board.hit( this.position );
+    if (hasHit) {
+      this.scoreSinceLastHit = 0;
+    }
 
     setTimeout(
         function(){

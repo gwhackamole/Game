@@ -1,8 +1,9 @@
 var Config = {
   textures: {
     background: "asset/board.png",
-    buttonOn: "asset/btnOn.png",
-    buttonOff: "asset/btnOff.png",
+    buttonOn: "asset/button_pushed.png",
+    buttonOff: "asset/button_idle.png",
+    buttonDead: "asset/button_dead.png",
     hammer: "asset/Hammer.png",
     mole: "asset/mole.png",
     playButton: "asset/play.png",
