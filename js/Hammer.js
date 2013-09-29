@@ -38,8 +38,12 @@ function Hammer(pixiStage,board)
 
 Hammer.prototype.update = function(time, dt, score) {
     var mole = this.getTargetedMole()
-    if( mole )
+    if( mole ) {
+      if (distance(this.position,mole.molePositions) < 0.03) {
+        setTimeout(this.activate.bind(this), 50);
+      }
       this.moveToClosestMole(dt, mole)
+    }
     
     var projection = projectVirtualPosition(this.position, Math.sin(time * 2) * 0.04 + 0.04)
     var targetProj = projectVirtualPosition(this.position, 0);
@@ -91,7 +95,7 @@ Hammer.prototype.getTargetedMole = function(){
 Hammer.prototype.moveToClosestMole = function(dt,nextMole){
     var molePosition = {
       x: nextMole.molePositions.x,
-      y: nextMole.molePositions.yHiddenPosition,
+      y: nextMole.molePositions.yRisenPosition,
     }
     var direction = vec2subtract(molePosition, this.position)
     var length = distance(molePosition, this.position)
@@ -107,10 +111,6 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
 
     this.position.x += normalizedDirection.x * dt * (this.speed + modspeed(this.speed));
     this.position.y += normalizedDirection.y * dt * (this.speed + modspeed(this.speed));
-
-    if (length < 0.03) { // FIXME, as the hammer trembles, length cannot === 0
-        setTimeout(this.activate.bind(this), 100);
-    }
 }
 
 Hammer.prototype.activate = function(){
