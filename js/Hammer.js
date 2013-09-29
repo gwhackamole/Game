@@ -4,7 +4,7 @@ function Hammer(pixiStage,board)
     this.board = board;
     this.pixiHammer  = new PIXI.Sprite.fromImage(Config.textures.hammer);
     var ratio = this.pixiHammer.height / this.pixiHammer.width;
-    this.pixiHammer.alpha = 0.1;
+    this.pixiHammer.alpha = 0.5;
     this.hit = false;
     this.pixiHammer.position ={
         x: 370,
@@ -27,12 +27,15 @@ function Hammer(pixiStage,board)
 }
 
 Hammer.prototype.update = function(time, dt, score) {
-    var m = this.getTargetedMole()
-    if( !m ) return
-    this.moveToClosestMole(dt, m)
+    var mole = this.getTargetedMole()
+    if( mole )
+      this.moveToClosestMole(dt, mole)
+    
     //var m =  this.moveToClosestMole(dt, m)
     //this.position = m.molePositions;
-    this.pixiHammer.position = doTransform(this.position)
+    var projection = projectVirtualPosition(this.position, Math.sin(time * 2) * 0.04)
+    this.pixiHammer.position = projection.position
+    this.pixiHammer.scale = projection.scale
     this.scoreSinceLastHit += score;
 };
 
@@ -99,7 +102,7 @@ Hammer.prototype.activate = function(){
     setTimeout(
         function(){
           self.hit = false;
-          self.pixiHammer.alpha = 0.1;
+          self.pixiHammer.alpha = 0.5;
         },200);
 };
 
