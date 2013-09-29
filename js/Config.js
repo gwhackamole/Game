@@ -10,6 +10,7 @@ var Config = {
     playButton: "asset/play.png",
     retryButton: "asset/retry.png",
     target: "asset/target.png",
+    title: "asset/title.png",
     hole: "asset/hole.png"
   },
   

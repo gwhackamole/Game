@@ -1,7 +1,7 @@
 function Loading()
 {
   var interactive = true
-  this.stage = new PIXI.Stage(0xeeaa00, interactive)
+  this.stage = new PIXI.Stage(0x666666, interactive)
   
   this.loadingText = new PIXI.Text("Loading...")
   this.loadingText.position.x = 400
@@ -26,6 +26,13 @@ function Loading()
     // remove loading text
     self.stage.removeChild(self.loadingText)
     
+    titleScreen = PIXI.Sprite.fromImage(Config.textures.title);
+    titleScreen.position.x = 0; 
+    titleScreen.position.y = 0;
+    titleScreen.anchor.x = 0;
+    titleScreen.anchor.y = 0;
+    self.stage.addChild(titleScreen)
+
     // add play button
     var playTexture = PIXI.Texture.fromImage(Config.textures.playButton)
     var playButton = new PIXI.Sprite(playTexture)
