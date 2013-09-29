@@ -80,18 +80,21 @@
    * Takes an object with x, y as parameter
    * And returns another object with x, y transformed
    */
-  function projectVirtualPosition(position) {
-    var projectionCenter = vec2.clone([400, 650])
-    var projectionScale = vec2.clone([400, -150])
+  function projectVirtualPosition(position, yoffset) {
+    var projectionCenter = vec2.clone([400, -200])
+    var projectionScale = vec2.clone([500, -600])
     
-    var zStart = 0
-    var zEnd = 5
+    var zStart = 1
+    var zEnd = 2
     var planeHeight = -2
+    
+    if (!yoffset)
+      yoffset = 0
     
     var homogeneousPoint = vec3.clone([
       position.x * 2.0 - 1.0,
-      planeHeight,
-      position.y * (zEnd - zStart) + zStart
+      planeHeight + yoffset,
+      (1.0 - position.y) * (zEnd - zStart) + zStart
     ])
     
     var projectedPoint = vec2.create()

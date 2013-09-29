@@ -75,13 +75,17 @@ Mole.prototype.update = function(time, dt) {
    }
   }
   
-  var projection = projectVirtualPosition(this.molePositions)
+  var yOffset = this.molePositions.yHiddenPosition - moleYPosition
+  var projection = projectVirtualPosition({
+    x: this.molePositions.x,
+    y: this.molePositions.yHiddenPosition
+  }, yOffset)
   this.pixiMole.position.y = projection.position.y;
 };
 
 Mole.prototype.hide = function() {
   this.isHidden = true;
-  this.pixiMole.alpha = 0.2
+  this.pixiMole.alpha = 0.6
 };
 
 Mole.prototype.rise = function() {
