@@ -3,6 +3,9 @@ function GameOver(score)
   var interactive = true
   this.stage = new PIXI.Stage(0xaa4444, interactive)
 
+  var tex = PIXI.Sprite.fromImage(Config.textures.end);
+  this.stage.addChild(tex);
+
   this.scoreText = new PIXI.Text( score.score, { font:"bold 40pt Arial", fill:"white"});
   this.scoreText.position.x = 400;
   this.scoreText.position.y = 300;

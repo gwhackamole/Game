@@ -11,6 +11,7 @@ var Config = {
     retryButton: "asset/retry.png",
     target: "asset/target.png",
     title: "asset/title.png",
+    end: "asset/end.png",
     hole: "asset/hole.png"
   },
   
