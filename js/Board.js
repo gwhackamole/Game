@@ -45,8 +45,8 @@ Board.prototype.update = function(time, dt)
     this.moles[i].update(time, dt)
   }
   
-  this.hammer.update(time, dt)
-  this.score.update(time, dt)
+  var scoreIncrement = this.score.update(time, dt)
+  this.hammer.update(time, dt, scoreIncrement)
 
   if (this.score.time <= 0)
     return new GameOver(this.score)
@@ -55,10 +55,10 @@ Board.prototype.update = function(time, dt)
 }
 
 Board.prototype.hit = function( position ){
-    this.moles.filter(function(m){
+    return this.moles.filter(function(m){
         return m.isHittable() && distance( m.molePositions, position ) < 0.1;
-    }).forEach(function(m){
-        m.hit()
+    }).some(function(m){
+        return m.hit()
     })
 }
 

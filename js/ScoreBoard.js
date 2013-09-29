@@ -22,8 +22,10 @@ function ScoreBoard(pixiStage, board){
 
 ScoreBoard.prototype = {
   incrementScore: function( upMoleNumber, dt ){
-    this.score += upMoleNumber * 100 * dt;
+    var scoreIncrement = Math.floor(upMoleNumber * 100 * dt);
+    this.score += scoreIncrement;
     this.scoreText.setText(this.score.toFixed(0));
+    return scoreIncrement;
   },
 
   updateTime : function( dt ){
@@ -31,9 +33,13 @@ ScoreBoard.prototype = {
     this.timeText.setText( timeToString( this.time ) );
   },
 
+  /**
+   * Update method. returns the increment to the score
+   */
   update : function( time, dt ){
-    this.incrementScore( this.board.countScoringMoles(), dt);
+    var scoreIncrement = this.incrementScore( this.board.countScoringMoles(), dt);
     this.updateTime( dt );
+    return scoreIncrement;
   }
 }
 
