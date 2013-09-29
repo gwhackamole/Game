@@ -1,5 +1,4 @@
 function Mole(pixiStage, virtualPosition) {
-  this.isHidden = false;
   this.knockedOut = false;
   this.timeWhenHit = null;
 
@@ -46,6 +45,8 @@ function Mole(pixiStage, virtualPosition) {
 
   pixiStage.addChild(this.pixiHole);
   pixiStage.addChild(this.pixiMole);
+
+  Mole.prototype.hide.apply( this );
 }
 
 Mole.prototype.update = function(time, dt) {
@@ -73,9 +74,9 @@ Mole.prototype.update = function(time, dt) {
         this.molePositions.yHiddenPosition : newMoleYPosition;
    }
   }
+  
   var projection = projectVirtualPosition(this.molePositions)
   this.pixiMole.position.y = projection.position.y;
-
 };
 
 Mole.prototype.hide = function() {

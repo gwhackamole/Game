@@ -23,8 +23,8 @@ function Board()
     this.moles.push(mole)
 
     var buttonPosition = {
-      x: 100 + i * 60,
-      y: 1010
+      x: i % 3 ? ((i + 1) % 3 ? 310 : 380) : 450,
+      y: i <= 3 ? 1085 : (i <= 6 ? 1155 : 1225)
     }
     var button = new Button(this.stage, mole, buttonPosition);
     this.buttons.push(button)
@@ -45,8 +45,8 @@ Board.prototype.update = function(time, dt)
     this.moles[i].update(time, dt)
   }
   
-  this.hammer.update(time, dt)
-  this.score.update(time, dt)
+  var scoreIncrement = this.score.update(time, dt)
+  this.hammer.update(time, dt, scoreIncrement)
 
   if (this.score.time <= 0)
     return new GameOver(this.score)
@@ -55,10 +55,10 @@ Board.prototype.update = function(time, dt)
 }
 
 Board.prototype.hit = function( position ){
-    this.moles.filter(function(m){
+    return this.moles.filter(function(m){
         return m.isHittable() && distance( m.molePositions, position ) < 0.1;
-    }).forEach(function(m){
-        m.hit()
+    }).some(function(m){
+        return m.hit()
     })
 }
 
