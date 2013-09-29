@@ -2,7 +2,7 @@ function Hammer(pixiStage,board)
 {
     var self = this;
     this.board = board;
-    this.pixiHammer  = new PIXI.Sprite.fromImage('asset/Hammer.png');
+    this.pixiHammer  = new PIXI.Sprite.fromImage(Config.textures.hammer);
     var ratio = this.pixiHammer.height / this.pixiHammer.width;
     this.pixiHammer.alpha = 0.1;
     this.hit = false;

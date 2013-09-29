@@ -1,8 +1,8 @@
 function Button( pixiStage, mole, position ){
   // load texture
   var t = {
-    on  : PIXI.Texture.fromImage("asset/btnOn.png"),
-    off : PIXI.Texture.fromImage("asset/btnOff.png")
+    on  : PIXI.Texture.fromImage(Config.textures.buttonOn),
+    off : PIXI.Texture.fromImage(Config.textures.buttonOff)
   };
 
   // create pixi object for button 

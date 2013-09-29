@@ -1,5 +1,5 @@
 function Mole(pixiStage, virtualPosition) {
-  this.pixiMole = PIXI.Sprite.fromImage('asset/mole.png');
+  this.pixiMole = PIXI.Sprite.fromImage(Config.textures.mole);
   var ratio = this.pixiMole.height / this.pixiMole.width;
   this.pixiMole.height = 150;
   this.pixiMole.width = this.pixiMole.height / ratio;

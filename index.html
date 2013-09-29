@@ -13,6 +13,7 @@
   
   <script src="js/Board.js"></script>
   <script src="js/Button.js"></script>
+  <script src="js/Config.js"></script>
   <script src="js/Mole.js"></script>
   <script src="js/Hammer.js"></script>
   <script src="js/ScoreBoard.js"></script>
@@ -25,7 +26,6 @@
   var previousTime = 0;
   var interactive = true
   var stage = new PIXI.Stage(0x000000, interactive);
-  var gameOver = createGameOver();
   
   // create a renderer instance
   var renderer = PIXI.autoDetectRenderer(800, 1280);
@@ -33,10 +33,32 @@
   // add the renderer view element to the DOM
   document.body.appendChild(renderer.view);
   
+  // game screens
   var board = new Board(stage)
-
-  requestAnimFrame(animate);
-
+  var gameOver = createGameOver();
+  
+  // preload assets before starting the game
+  var textures = []
+  for (var name in Config.textures)
+  {
+    textures.push(Config.textures[name])
+  }
+  
+  var loadingText = new PIXI.Text("Loading...")
+  loadingText.setStyle(0xffffff)
+  stage.addChild(loadingText)
+  
+  var assetLoader = new PIXI.AssetLoader(textures)
+  assetLoader.onComplete = function()
+  {
+    // remove loading message
+    stage.removeChild(loadingText)
+    
+    // start game loop
+    requestAnimFrame(animate);
+  }
+  assetLoader.load()
+  
   function animate(time) {
     var timeInSeconds = time * 0.001
     var dt = timeInSeconds - previousTime

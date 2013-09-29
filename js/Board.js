@@ -4,7 +4,7 @@ function Board(stage)
   var board = new PIXI.Sprite(boardBG);
   stage.addChild(board);
 
-  var score = this.score = new ScoreBoard(stage, this);
+  this.score = new ScoreBoard(stage, this);
 
   this.hammer = new Hammer(stage,this)
 
@@ -26,31 +26,17 @@ function Board(stage)
     var button = new Button(stage, mole, buttonPosition);
     this.buttons.push(button)
   }
-
-  this.text = new PIXI.Text("Whack it!")
-  this.text.setInteractive(true)
-  stage.addChild(this.text)
-  
-  this.text.touchstart = function(touchData)
-  {
-  }
-  
-  this.text.touchend = function(touchData)
-  {
-  }
   
   // background music
   var audio = new Audio()
-  audio.src = "asset/gwhackamole.ogg"
+  audio.preload = "metadata"
+  audio.src = Config.music
   audio.loop = true
   audio.play()
 }
 
 Board.prototype.update = function(time, dt)
 {
-  this.text.position.x = Math.sin(time) * 100 + 200
-  this.text.position.y = 200
-  
   // update buttons
   for (var i = 0; i < this.buttons.length; i++)
   {
