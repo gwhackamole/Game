@@ -30,7 +30,9 @@ Hammer.prototype.update = function(time, dt) {
     this.moveToClosestMole(dt, m)
     //var m =  this.moveToClosestMole(dt, m)
     //this.position = m.molePositions;
-    this.pixiHammer.position = doTransform(this.position)
+    var projection = projectVirtualPosition(this.position)
+    this.pixiHammer.position = projection.position
+    this.pixiHammer.scale = projection.scale
 };
 
 function distance(a,b){
