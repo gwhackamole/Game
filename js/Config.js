@@ -4,6 +4,8 @@ var Config = {
     buttonOn: "asset/button_pushed.png",
     buttonOff: "asset/button_idle.png",
     buttonDead: "asset/button_dead.png",
+    buttonOnBlack: "asset/button_pushed_black.png",
+    buttonOffBlack: "asset/button_idle_black.png",
     hammer: "asset/Hammer.png",
     mole: "asset/mole.png",
     deadMole: "asset/mole_dead.png",

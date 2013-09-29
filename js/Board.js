@@ -12,6 +12,8 @@ function Board()
   this.moles = []
   this.buttons = []
   
+	var isSmartphone = navigator.userAgent.toLowerCase().indexOf('mobile') !== -1;
+
   for (var i = 1; i <= 9; i++) {
     var moleVirtualPosition = {
       x: i % 3 ? ((i + 1) % 3 ? 0.25 : 0.5) : 0.75,
@@ -20,10 +22,13 @@ function Board()
     var mole = new Mole(this.stage, moleVirtualPosition);
     this.moles.push(mole)
 
-    var buttonPosition = {
-      x: i % 3 ? ((i + 1) % 3 ? 270 : 400) : 530,
-      y: i <= 3 ? 1085 : (i <= 6 ? 1155 : 1225)
-    }
+    var buttonPosition = {};
+    buttonPosition.y = !isSmartphone ? 
+      i <= 3 ? 1085 : (i <= 6 ? 1155 : 1225) :
+      i <= 3 ? 900 : (i <= 6 ? 1040 : 1180);
+    buttonPosition.x = !isSmartphone ? 
+      i % 3 ? ((i + 1) % 3 ? 270 : 400) : 530 : 
+      i % 3 ? ((i + 1) % 3 ? 190 : 400) : 610;
     var button = new Button(this.stage, mole, buttonPosition);
     this.buttons.push(button)
   }
