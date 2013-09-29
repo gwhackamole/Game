@@ -21,7 +21,7 @@ function Hammer(pixiStage,board)
     };
 
     this.scoreSinceLastHit = 0;
-    this.speed = 0.2;
+    this.speed = this.originalSpeed = 0.2;
     pixiStage.addChild(this.pixiHammer);
     setInterval(function(){self.activate()}, 4000);
 }
@@ -37,6 +37,7 @@ Hammer.prototype.update = function(time, dt, score) {
     this.pixiHammer.position = projection.position
     this.pixiHammer.scale = projection.scale
     this.scoreSinceLastHit += score;
+    this.speed += this.scoreSinceLastHit / 100000 / 3;
 };
 
 function distance(a,b){
@@ -97,6 +98,7 @@ Hammer.prototype.activate = function(){
     var hasHit = this.board.hit( this.position );
     if (hasHit) {
       this.scoreSinceLastHit = 0;
+      this.speed = this.originalSpeed;
     }
 
     setTimeout(
