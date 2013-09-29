@@ -34,13 +34,17 @@ function Hammer(pixiStage,board)
     pixiStage.addChild(this.pixiHammer);
     pixiStage.addChild(this.pixiTarget);
 
-    setInterval(function(){self.activate()}, 4000);
+    //setInterval(function(){self.activate()}, 4000);
 }
 
 Hammer.prototype.update = function(time, dt, score) {
     var mole = this.getTargetedMole()
     if( mole ) {
-      if (distance(this.position,mole.molePositions) < 0.03) {
+      var molePosition = {
+        x: mole.molePositions.x,
+        y: mole.molePositions.yHiddenPosition,
+      }
+      if (distance(this.position,molePosition) < 0.03) {
         setTimeout(this.activate.bind(this), 50);
       }
       this.moveToClosestMole(dt, mole)
@@ -56,6 +60,8 @@ Hammer.prototype.update = function(time, dt, score) {
 
     this.pixiTarget.position = targetProj.position;
     this.pixiTarget.scale    = targetProj.scale;
+    this.pixiTarget.scale.x *= 1.2
+    this.pixiTarget.scale.y *= 1.2
 
     this.scoreSinceLastHit += score;
     this.speed += this.scoreSinceLastHit / 100000 / 3;
@@ -98,11 +104,11 @@ Hammer.prototype.getTargetedMole = function(){
 Hammer.prototype.moveToClosestMole = function(dt,nextMole){
     var molePosition = {
       x: nextMole.molePositions.x,
-      y: nextMole.molePositions.yRisenPosition,
+      y: nextMole.molePositions.yHiddenPosition,
     }
     var direction = vec2subtract(molePosition, this.position)
     var length = distance(molePosition, this.position)
-    length = length > 0.005 ? length : 1; // Prevent jumps over the target
+    length = length > 0.005 ? length : 0.005; // Prevent jumps over the target
     
     var normalizedDirection = {
         x: direction.x / length || 0,
@@ -115,9 +121,6 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
 
     this.position.x += normalizedDirection.x * dt * (this.speed + modspeed(this.speed));
     this.position.y += normalizedDirection.y * dt * (this.speed + modspeed(this.speed));
-    if (length < 0.03) { // FIXME, as the hammer trembles, length cannot === 0
-        setTimeout(this.activate.bind(this), 100);
-    }
 }
 
 Hammer.prototype.moveRandomly = function( dt, time ){
