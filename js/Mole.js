@@ -1,4 +1,5 @@
 function Mole(pixiStage, virtualPosition) {
+  this.stage = pixiStage
   this.knockedOut = false;
   this.timeWhenHit = null;
 
@@ -9,44 +10,49 @@ function Mole(pixiStage, virtualPosition) {
     yHiddenPosition: virtualPosition.y // Position of the mole when hidden
   };
 
-  this.pixiMole = PIXI.Sprite.fromImage(Config.textures.mole);
+  this.moleTexture = PIXI.Texture.fromImage(Config.textures.mole),
+  this.deadMoleTexture = PIXI.Texture.fromImage(Config.textures.deadMole),
+  
+  this.pixiMole = new PIXI.Sprite(this.moleTexture);
   var moleRatio = this.pixiMole.height / this.pixiMole.width;
   this.pixiMole.height = 150;
   this.pixiMole.width = this.pixiMole.height / moleRatio;
 
-  var projection = projectVirtualPosition(virtualPosition);
-  this.pixiMole.position = projection.position
-  this.pixiMole.scale = projection.scale
+  this.initialProjection = projectVirtualPosition(virtualPosition);
+  this.pixiMole.position = this.initialProjection.position
+  this.pixiMole.scale = this.initialProjection.scale
   this.pixiMole.anchor = new PIXI.Point(0.5, 0.1);
-  var myMask = new PIXI.Graphics();
-  myMask.beginFill();
-  myMask.drawRect(
-    this.pixiMole.position.x - this.pixiMole.width * this.pixiMole.scale.x / 2,
-    this.pixiMole.position.y - this.pixiMole.height * this.pixiMole.scale.y / 2,
-    this.pixiMole.width * this.pixiMole.scale.x,
-    this.pixiMole.height * this.pixiMole.scale.y * 0.5
-  )
-  myMask.drawElipse(projection.position.x, projection.position.y, 120 * this.pixiMole.scale.x, 50 * this.pixiMole.scale.y);
-  myMask.endFill();
-  this.pixiMole.mask = myMask;
+  
+  this.computeMask()
+  this.pixiMole.mask = this.holeMask
 
   this.pixiHole = PIXI.Sprite.fromImage(Config.textures.hole);
   var holeRatio = this.pixiHole.height / this.pixiHole.width;
   this.pixiHole.width = this.pixiMole.width * 1.5;
   this.pixiHole.height = this.pixiHole.width * holeRatio;
   this.pixiHole.anchor = new PIXI.Point(0.5, 0.5);
-  /*var holeVirtualPosition = {
-    x: this.molePositions.x,
-    y: this.molePositions.yHiddenPosition
-  };
-  var projection = projectVirtualPosition(holeVirtualPosition);*/
-  this.pixiHole.position = new PIXI.Point(projection.position.x, projection.position.y)
-  this.pixiHole.scale = new PIXI.Point(projection.scale.x, projection.scale.y)
+  
+  this.pixiHole.position = new PIXI.Point(this.initialProjection.position.x, this.initialProjection.position.y)
+  this.pixiHole.scale = new PIXI.Point(this.initialProjection.scale.x, this.initialProjection.scale.y)
 
   pixiStage.addChild(this.pixiHole);
   pixiStage.addChild(this.pixiMole);
 
   Mole.prototype.hide.apply( this );
+}
+
+Mole.prototype.computeMask = function()
+{
+  this.holeMask = new PIXI.Graphics();
+  this.holeMask.beginFill();
+  this.holeMask.drawRect(
+    this.initialProjection.position.x - this.pixiMole.width * this.initialProjection.scale.x / 2,
+    this.initialProjection.position.y - this.pixiMole.height * this.initialProjection.scale.y / 2,
+    this.pixiMole.width * this.initialProjection.scale.x,
+    this.pixiMole.height * this.initialProjection.scale.y * 0.5
+  )
+  this.holeMask.drawElipse(this.initialProjection.position.x, this.initialProjection.position.y, 120 * this.initialProjection.scale.x, 50 * this.initialProjection.scale.y);
+  this.holeMask.endFill();
 }
 
 Mole.prototype.update = function(time, dt) {
@@ -103,14 +109,21 @@ Mole.prototype.hit = function() {
   }
   this.knockedOut = true;
   this.timeWhenHit = Date.now() * 0.001;
-  this.pixiMole.rotation = Math.PI
+  
+  this.pixiMole.setTexture(this.deadMoleTexture)
+  this.pixiMole.mask = null
+  this.pixiMole.mask = this.holeMask
+  
   return true;
 };
 
 Mole.prototype.recover = function() {
   this.knockedOut = false;
   this.timeWhenHit = null;
-  this.pixiMole.rotation = 0;
+  
+  this.pixiMole.setTexture(this.moleTexture)
+  this.pixiMole.mask = null
+  this.pixiMole.mask = this.holeMask
 };
 
 /**
