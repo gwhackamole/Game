@@ -6,7 +6,14 @@ function GameOver(score)
   var tex = PIXI.Sprite.fromImage(Config.textures.end);
   this.stage.addChild(tex);
 
-  this.scoreText = new PIXI.Text( score.score, { font:"bold 40pt Arial", fill:"white"});
+  this.scoreText = new PIXI.Text(
+    score.score + '\n' +
+      (
+        score.highScore < score.score ?
+        "New High Score!" : '(High Score: ' + score.highScore + ')'
+      ),
+    { font:"bold 40pt Arial", fill:"white", align: "center" }
+  );
   this.scoreText.position.x = 400;
   this.scoreText.position.y = 300;
   this.scoreText.anchor.x = 0.5;
@@ -38,6 +45,10 @@ function GameOver(score)
   {
     self.retryPressed = true
   }
+
+  if (score.highScore < score.score) {
+    localStorage.setItem('highScore', score.score);
+  }
 }
 
 GameOver.prototype.update = function(time, dt)
@@ -48,7 +59,7 @@ GameOver.prototype.update = function(time, dt)
   
   this.text.position.x = 400 + Math.sin(time) * 50
 
-  var f = Math.sin( time  * 3)  + 2;
+  var f = Math.sin( time  * 3)  + 1.5;
   this.scoreText.scale =  new PIXI.Point(f,f);
   
   return null

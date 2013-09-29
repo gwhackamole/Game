@@ -1,5 +1,6 @@
 function ScoreBoard(pixiStage, board){
   this.score = 0;
+  this.highScore = localStorage.getItem('highScore') || 0;
   this.time = 30;
 
   this.scoreText = new PIXI.Text(this.score.toFixed(0), {font:"bold 40pt Arial", fill:"#fff"});
@@ -50,6 +51,10 @@ ScoreBoard.prototype = {
     this.updateTime( dt );
     return scoreIncrement;
   },
+
+  saveHighScore: function (score) {
+    localStorage.setItem('highScore', score);
+  }
 }
 
 function timeToString( t ){
