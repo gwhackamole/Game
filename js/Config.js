@@ -7,6 +7,7 @@ var Config = {
     mole: "asset/mole.png",
     playButton: "asset/play.png",
     retryButton: "asset/retry.png",
+    hole: "asset/hole.png"
   },
   
   music: "asset/gwhackamole.ogg"
