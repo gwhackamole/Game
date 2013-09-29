@@ -10,17 +10,21 @@ function GameOver(score)
   this.text.anchor.y = 0.5
   this.stage.addChild(this.text)
   
-  this.retryText = new PIXI.Text("retry!")
-  this.retryText.position.x = 400
-  this.retryText.position.y = 800
-  this.retryText.anchor.x = 0.5
-  this.retryText.anchor.y = 0.5
-  this.stage.addChild(this.retryText)
+  // add retry button
+  var retryTexture = PIXI.Texture.fromImage(Config.textures.retryButton)
+  var retryButton = new PIXI.Sprite(retryTexture)
+  retryButton.buttonMode = true;
+  retryButton.anchor.x = 0.5
+  retryButton.anchor.y = 0.5
+  retryButton.position.x = 400
+  retryButton.position.y = 800
+  retryButton.interactive = true
+  this.stage.addChild(retryButton)
   
   this.retryPressed = false
   
   var self = this
-  this.retryText.mousedown = this.retryText.touchstart = function()
+  retryButton.mousedown = retryButton.touchstart = function()
   {
     self.retryPressed = true
   }
