@@ -14,10 +14,9 @@ function Mole(pixiStage, virtualPosition) {
   this.pixiMole.height = 150;
   this.pixiMole.width = this.pixiMole.height / moleRatio;
 
-  var molePixiPosition = doTransform(virtualPosition);
-  this.pixiMole.position = new PIXI.Point(
-    molePixiPosition.x, molePixiPosition.y
-  );
+  var projection = projectVirtualPosition(virtualPosition);
+  this.pixiMole.position = projection.position
+  this.pixiMole.scale = projection.scale
   this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
   var myMask = new PIXI.Graphics();
   myMask.beginFill();
@@ -27,7 +26,7 @@ function Mole(pixiStage, virtualPosition) {
     this.pixiMole.width,
     this.pixiMole.height
   )
-  myMask.drawElipse(molePixiPosition.x, molePixiPosition.y, 120, 100);
+  myMask.drawElipse(projection.position.x, projection.position.y, 120, 100);
   myMask.endFill();
   this.pixiMole.mask = myMask;
 
@@ -40,10 +39,9 @@ function Mole(pixiStage, virtualPosition) {
     x: this.molePositions.x,
     y: this.molePositions.yHiddenPosition
   };
-  var pixiHolePosition = doTransform(holeVirtualPosition);
-  this.pixiHole.position = new PIXI.Point(
-    pixiHolePosition.x, pixiHolePosition.y
-  );
+  var projection = projectVirtualPosition(holeVirtualPosition);
+  this.pixiHole.position = projection.position
+  this.pixiHole.scale = projection.scale
 
   pixiStage.addChild(this.pixiHole);
   pixiStage.addChild(this.pixiMole);
@@ -76,16 +74,18 @@ Mole.prototype.update = function(time, dt) {
         this.molePositions.yHiddenPosition : newMoleYPosition;
    }
   }
-  var transformedPosition = doTransform({
+  
+  var yOffset = this.molePositions.yHiddenPosition - moleYPosition
+  var projection = projectVirtualPosition({
     x: this.molePositions.x,
-    y: this.molePositions.y
-  });
-  this.pixiMole.position.y = transformedPosition.y;
+    y: this.molePositions.yHiddenPosition
+  }, yOffset)
+  this.pixiMole.position.y = projection.position.y;
 };
 
 Mole.prototype.hide = function() {
   this.isHidden = true;
-  this.pixiMole.alpha = 0.2
+  this.pixiMole.alpha = 0.6
 };
 
 Mole.prototype.rise = function() {

@@ -21,6 +21,7 @@
       margin : auto;
     }
   </style>
+  <script src="vendor/gl-matrix-min.js"></script>
   <script src="vendor/pixi.dev.js"></script>
 
   <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, minimum-scale=1,user-scalable=no">
@@ -79,16 +80,38 @@
    * Takes an object with x, y as parameter
    * And returns another object with x, y transformed
    */
-  function doTransform(position) {
-    var originalPositions = {
-      x: 0,
-      y: 475,
-      width: 800,
-      height: 500
-    };
+  function projectVirtualPosition(position, yoffset) {
+    var projectionCenter = vec2.clone([400, -200])
+    var projectionScale = vec2.clone([500, -600])
+    
+    var zStart = 1
+    var zEnd = 2
+    var planeHeight = -2
+    
+    if (!yoffset)
+      yoffset = 0
+    
+    var homogeneousPoint = vec3.clone([
+      position.x * 2.0 - 1.0,
+      planeHeight + yoffset,
+      (1.0 - position.y) * (zEnd - zStart) + zStart
+    ])
+    
+    var projectedPoint = vec2.create()
+    vec2.divide(projectedPoint, homogeneousPoint, [homogeneousPoint[2], homogeneousPoint[2]])
+    vec2.multiply(projectedPoint, projectedPoint, projectionScale)
+    vec2.add(projectedPoint, projectedPoint, projectionCenter)
+    
+    var rhw = 1.0 / homogeneousPoint[2]
     return {
-      x: position.x * originalPositions.width + originalPositions.x,
-      y: position.y * originalPositions.height + originalPositions.y
+      position: {
+        x: projectedPoint[0],
+        y: projectedPoint[1]
+      },
+      scale: {
+        x: rhw,
+        y: rhw
+      }
     };
   }
   </script>
