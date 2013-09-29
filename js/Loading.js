@@ -39,6 +39,14 @@ function Loading()
     
     playButton.mousedown = playButton.touchstart = function()
     {
+      var elem = document.querySelector("canvas");
+      if (elem.requestFullscreen) {
+          elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+          elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+          elem.webkitRequestFullscreen();
+      }
       self.playRequested = true
     }
   }

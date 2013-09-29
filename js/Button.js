@@ -7,7 +7,6 @@ function Button( pixiStage, mole, position ){
 
   // create pixi object for button 
   var button = new PIXI.Sprite(t.off); 
-  button.buttonMode = true;
   button.anchor.x = 0;
   button.anchor.y = 0;
   button.position.x = position.x;
