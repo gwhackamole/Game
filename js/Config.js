@@ -8,6 +8,7 @@ var Config = {
     mole: "asset/mole.png",
     playButton: "asset/play.png",
     retryButton: "asset/retry.png",
+    target: "asset/target.png",
     hole: "asset/hole.png"
   },
   

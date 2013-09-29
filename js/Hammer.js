@@ -2,10 +2,14 @@ function Hammer(pixiStage,board)
 {
     var self = this;
     this.board = board;
+
     this.pixiHammer  = new PIXI.Sprite.fromImage(Config.textures.hammer);
+    this.pixiTarget = new PIXI.Sprite.fromImage(Config.textures.target);
+
     var ratio = this.pixiHammer.height / this.pixiHammer.width;
-    this.pixiHammer.alpha = 0.5;
     this.hit = false;
+
+    this.pixiHammer.alpha = 0.5;
     this.pixiHammer.position ={
         x: 370,
         y: 490
@@ -15,14 +19,20 @@ function Hammer(pixiStage,board)
         y: 0.75
     }
 
+    this.pixiTarget.position = { x : 0.5 , y:0.5};
+    this.pixiTarget.anchor = { x : 0.5 , y:0.5};
+
     this.position ={
        x : 0.5,
        y : 0.5
     };
 
     this.scoreSinceLastHit = 0;
-    this.speed = 0.2;
+    this.speed = this.originalSpeed = 0.2;
+
     pixiStage.addChild(this.pixiHammer);
+    pixiStage.addChild(this.pixiTarget);
+
     setInterval(function(){self.activate()}, 4000);
 }
 
@@ -31,12 +41,17 @@ Hammer.prototype.update = function(time, dt, score) {
     if( mole )
       this.moveToClosestMole(dt, mole)
     
-    //var m =  this.moveToClosestMole(dt, m)
-    //this.position = m.molePositions;
-    var projection = projectVirtualPosition(this.position, Math.sin(time * 2) * 0.04)
-    this.pixiHammer.position = projection.position
-    this.pixiHammer.scale = projection.scale
+    var projection = projectVirtualPosition(this.position, Math.sin(time * 2) * 0.04 + 0.04)
+    var targetProj = projectVirtualPosition(this.position, 0);
+
+    this.pixiHammer.position = projection.position;
+    this.pixiHammer.scale = projection.scale;
+
+    this.pixiTarget.position = targetProj.position;
+    this.pixiTarget.scale    = targetProj.scale;
+
     this.scoreSinceLastHit += score;
+    this.speed += this.scoreSinceLastHit / 100000 / 3;
 };
 
 function distance(a,b){
@@ -85,9 +100,13 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
     var modspeed = function(v){
         return v*Math.random()*3
     };
+
     this.position.x += normalizedDirection.x * dt * (this.speed + modspeed(this.speed));
     this.position.y += normalizedDirection.y * dt * (this.speed + modspeed(this.speed));
 
+    if (length < 0.03) { // FIXME, as the hammer trembles, length cannot === 0
+        setTimeout(this.activate.bind(this), 100);
+    }
 }
 
 Hammer.prototype.activate = function(){
@@ -97,6 +116,7 @@ Hammer.prototype.activate = function(){
     var hasHit = this.board.hit( this.position );
     if (hasHit) {
       this.scoreSinceLastHit = 0;
+      this.speed = this.originalSpeed;
     }
 
     setTimeout(
@@ -105,10 +125,3 @@ Hammer.prototype.activate = function(){
           self.pixiHammer.alpha = 0.5;
         },200);
 };
-
-
-
-
-
-
-
