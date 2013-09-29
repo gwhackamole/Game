@@ -12,6 +12,7 @@ function Button( pixiStage, mole, position ){
   button.anchor.x = 0.5;
   button.anchor.y = 0.5;
   button.interactive = true;
+  button.scale = new PIXI.Point(1.2, 1.2);
 
   button.mousedown = button.touchstart = function(){
     mole.rise();

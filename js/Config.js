@@ -6,6 +6,7 @@ var Config = {
     buttonDead: "asset/button_dead.png",
     hammer: "asset/Hammer.png",
     mole: "asset/mole.png",
+    deadMole: "asset/mole_dead.png",
     playButton: "asset/play.png",
     retryButton: "asset/retry.png",
     target: "asset/target.png",

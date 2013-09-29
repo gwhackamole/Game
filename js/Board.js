@@ -21,7 +21,7 @@ function Board()
     this.moles.push(mole)
 
     var buttonPosition = {
-      x: i % 3 ? ((i + 1) % 3 ? 300 : 400) : 500,
+      x: i % 3 ? ((i + 1) % 3 ? 270 : 400) : 530,
       y: i <= 3 ? 1085 : (i <= 6 ? 1155 : 1225)
     }
     var button = new Button(this.stage, mole, buttonPosition);
