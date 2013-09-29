@@ -7,7 +7,6 @@ function Button( pixiStage, mole, position ){
 
   // create pixi object for button 
   var button = new PIXI.Sprite(t.off); 
-  button.buttonMode = true;
   button.anchor.x = 0;
   button.anchor.y = 0;
   button.position.x = position.x;
@@ -22,9 +21,21 @@ function Button( pixiStage, mole, position ){
   button.mouseup = button.touchend  = function(){
     mole.rise();
     this.setTexture(t.off);
+  };
+
+  button.mouseupoutside = button.touchend  = function(){
+    mole.rise();
+    this.setTexture(t.off);
   }
 
-  // Add to pixi
+  button.mouseout = button.touchend  = function(){
+     mole.rise();
+     this.setTexture(t.off);
+  }
+
+
+
+    // Add to pixi
 
   pixiStage.addChild( button );
 }
