@@ -40,6 +40,8 @@ Hammer.prototype.update = function(time, dt, score) {
     var mole = this.getTargetedMole()
     if( mole )
       this.moveToClosestMole(dt, mole)
+    else 
+      this.moveRandomly( dt, time );
     
     var projection = projectVirtualPosition(this.position, Math.sin(time * 2) * 0.04 + 0.04)
     var targetProj = projectVirtualPosition(this.position, 0);
@@ -103,8 +105,25 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
 
     this.position.x += normalizedDirection.x * dt * (this.speed + modspeed(this.speed));
     this.position.y += normalizedDirection.y * dt * (this.speed + modspeed(this.speed));
+};
 
-}
+Hammer.prototype.moveRandomly = function( dt, time ){
+    var target = {
+        x : (Math.sin( time * 2 ) / 2 + 0.5) + (Math.cos(time * 10) + 1 ) / 10 ,
+        y : (Math.cos( time * 2 ) / 2 + 0.5) + (Math.cos(time * 10) + 1 ) / 10
+    } 
+    
+    var direction = vec2subtract(target, this.position)
+    var length = distance(target, this.position)
+
+    var normalizedDirection = {
+        x: direction.x / length || 0,
+        y: direction.y / length || 0
+    }
+
+    this.position.x += normalizedDirection.x * dt * (this.speed);
+    this.position.y += normalizedDirection.y * dt * (this.speed);
+};
 
 Hammer.prototype.activate = function(){
     var self = this;
