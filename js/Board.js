@@ -9,7 +9,6 @@ function Board()
 
   this.score = new ScoreBoard(this.stage, this);
 
-
   this.moles = []
   this.buttons = []
   

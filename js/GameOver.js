@@ -1,9 +1,16 @@
 function GameOver(score)
 {
   var interactive = true
-  this.stage = new PIXI.Stage(0xbb2222, interactive)
+  this.stage = new PIXI.Stage(0xaa4444, interactive)
+
+  this.scoreText = new PIXI.Text( score.score, { font:"bold 40pt Arial", fill:"white"});
+  this.scoreText.position.x = 400;
+  this.scoreText.position.y = 300;
+  this.scoreText.anchor.x = 0.5;
+  this.scoreText.anchor.y = 0.5;
+  this.stage.addChild(this.scoreText);
   
-  this.text = new PIXI.Text("GAME OVER")
+  this.text = new PIXI.Text("GAME OVER", { font:"bold 60pt Arial", fill:"white"})
   this.text.position.x = 400
   this.text.position.y = 640
   this.text.anchor.x = 0.5
@@ -37,6 +44,9 @@ GameOver.prototype.update = function(time, dt)
     return new Board()
   
   this.text.position.x = 400 + Math.sin(time) * 50
+
+  var f = Math.sin( time  * 3)  + 2;
+  this.scoreText.scale =  new PIXI.Point(f,f);
   
   return null
 }
