@@ -1,6 +1,7 @@
 function Board()
 {
-  this.stage = new PIXI.Stage(0x000000)
+  var interactive = true
+  this.stage = new PIXI.Stage(0x000000, interactive)
   
   var boardBG = PIXI.Texture.fromImage("asset/board.png");
   var board = new PIXI.Sprite(boardBG);
