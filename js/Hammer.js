@@ -21,7 +21,7 @@ function Hammer(pixiStage,board)
     };
 
     this.scoreSinceLastHit = 0;
-    this.speed = 0.1;
+    this.speed = 0.2;
     pixiStage.addChild(this.pixiHammer);
     setInterval(function(){self.activate()}, 4000);
 }
@@ -79,8 +79,12 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
         y: direction.y / length || 0
     }
 
-    this.position.x += normalizedDirection.x * dt * this.speed;
-    this.position.y += normalizedDirection.y * dt * this.speed;
+    var modspeed = function(v){
+        return v*Math.random()*3
+    };
+    this.position.x += normalizedDirection.x * dt * (this.speed + modspeed(this.speed));
+    this.position.y += normalizedDirection.y * dt * (this.speed + modspeed(this.speed));
+
 }
 
 Hammer.prototype.activate = function(){
