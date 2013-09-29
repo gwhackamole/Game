@@ -57,7 +57,11 @@ Board.prototype.update = function(time, dt)
 
 Board.prototype.hit = function( position ){
     return this.moles.filter(function(m){
-        return m.isHittable() && distance( m.molePositions, position ) < 0.1;
+        var molePosition = {
+          x: m.molePositions.x,
+          y: m.molePositions.yHiddenPosition,
+        }
+        return m.isHittable() && distance( molePosition, position ) < 0.1;
     }).some(function(m){
         return m.hit()
     })
