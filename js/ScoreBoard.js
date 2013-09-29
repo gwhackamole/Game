@@ -28,6 +28,15 @@ ScoreBoard.prototype = {
     return scoreIncrement;
   },
 
+  decrementScore: function( amount ){
+    this.score -= amount;
+    
+    if (this.score < 0)
+      this.score = 0
+    
+    this.scoreText.setText( this.score.toFixed(0));
+  },
+
   updateTime : function( dt ){
     this.time -= dt;
     this.timeText.setText( timeToString( this.time ) );
@@ -40,7 +49,7 @@ ScoreBoard.prototype = {
     var scoreIncrement = this.incrementScore( this.board.countScoringMoles(), dt);
     this.updateTime( dt );
     return scoreIncrement;
-  }
+  },
 }
 
 function timeToString( t ){
