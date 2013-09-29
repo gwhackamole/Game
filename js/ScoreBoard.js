@@ -2,17 +2,17 @@ function ScoreBoard(pixiStage, board){
   this.score = 0;
   this.time = 30;
 
-  this.scoreText = new PIXI.Text(this.score.toFixed(0));
+  this.scoreText = new PIXI.Text(this.score.toFixed(0), {font:"bold 30pt Arial", fill:"#fff"});
   this.scoreText.anchor.x = 1;
   this.scoreText.anchor.y = 1;
   this.scoreText.position.x = 620;
-  this.scoreText.position.y = 120;
+  this.scoreText.position.y = 270;
 
   this.timeText = new PIXI.Text( timeToString( this.time ) );
-  this.timeText.anchor.x = 1;
-  this.timeText.anchor.y = 1;
-  this.timeText.position.x = 320;
-  this.timeText.position.y = 120;
+  this.timeText.anchor.x = 0;
+  this.timeText.anchor.y = 0;
+  this.timeText.position.x = 120;
+  this.timeText.position.y = 70;
 
   this.board = board;
 
@@ -24,7 +24,7 @@ ScoreBoard.prototype = {
   incrementScore: function( upMoleNumber, dt ){
     var scoreIncrement = Math.floor(upMoleNumber * 100 * dt);
     this.score += scoreIncrement;
-    this.scoreText.setText(this.score.toFixed(0));
+    this.scoreText.setText( this.score.toFixed(0));
     return scoreIncrement;
   },
 
