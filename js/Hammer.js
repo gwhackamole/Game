@@ -108,6 +108,9 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
     this.position.x += normalizedDirection.x * dt * (this.speed + modspeed(this.speed));
     this.position.y += normalizedDirection.y * dt * (this.speed + modspeed(this.speed));
 
+    if (length < 0.03) { // FIXME, as the hammer trembles, length cannot === 0
+        setTimeout(this.activate.bind(this), 100);
+    }
 }
 
 Hammer.prototype.activate = function(){
