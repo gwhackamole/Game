@@ -2,35 +2,90 @@ function Hammer(pixiStage,board)
 {
     var self = this;
     this.board = board;
-    this.pixiHammer  = new PIXI.Sprite.fromImage('asset/Hammer.png');
+    this.pixiHammer  = new PIXI.Sprite.fromImage(Config.textures.hammer);
     var ratio = this.pixiHammer.height / this.pixiHammer.width;
     this.pixiHammer.alpha = 0.1;
     this.hit = false;
-    this.setPosition(310, 490);
+    this.pixiHammer.position ={
+        x: 370,
+        y: 490
+    };
+    this.pixiHammer.anchor = {
+        x: 0.3,
+        y: 0.75
+    }
+
+    this.position ={
+       x : 0.5,
+       y : 0.5
+    };
+    this.speed = 0.1;
     pixiStage.addChild(this.pixiHammer);
     setInterval(function(){self.activate()}, 4000);
 }
 
 Hammer.prototype.update = function(time, dt) {
-    if (this.knockedOut && time - this.timeWhenHit >= 5) {
-        this.recover();
+    var m = this.getTargetedMole()
+    if( !m ) return
+    this.moveToClosestMole(dt, m)
+    //var m =  this.moveToClosestMole(dt, m)
+    //this.position = m.molePositions;
+    this.pixiHammer.position = doTransform(this.position)
+};
+
+function distance(a,b){
+    var dx = b.x - a.x
+    var dy = b.y - a.y
+    return  Math.sqrt(dx * dx + dy * dy);
+}
+
+function vec2subtract(a, b)
+{
+    return  {x: a.x - b.x, y: a.y - b.y}
+}
+
+Hammer.prototype.getTargetedMole = function(){
+    var self = this;
+    var closestMole;
+    var hittableMoles = this.board.moles.filter(function(m){
+        return m.isHittable();
+    });
+    if(hittableMoles.length === 0 ) return null;
+
+    initialMole = hittableMoles.pop();
+
+    closestMole = hittableMoles.reduce(function(m,c){
+        var dist = distance(self.position,c.molePositions);
+        if (m[1]< dist){
+           return m;
+        }
+        else{
+            return [c,dist];
+        }
+    },[initialMole,distance(this.position,initialMole.molePositions)])[0];
+
+    return closestMole;
+};
+
+Hammer.prototype.moveToClosestMole = function(dt,nextMole){
+    var direction = vec2subtract(nextMole.molePositions, this.position)
+    var length = distance(nextMole.molePositions, this.position)
+
+    var normalizedDirection = {
+        x: direction.x / length || 0,
+        y: direction.y / length || 0
     }
-};
 
-Hammer.prototype.setPosition = function(x,y){
-    this.pixiHammer.position.x = x;
-    this.pixiHammer.position.y = y;
-};
-
-Hammer.prototype.checkHit = function(){
-    return this.hit;
-};
+    this.position.x += normalizedDirection.x * dt * this.speed;
+    this.position.y += normalizedDirection.y * dt * this.speed;
+}
 
 Hammer.prototype.activate = function(){
     var self = this;
     this.hit = true;
     this.pixiHammer.alpha = 1;
-    this.board.hit();
+    this.board.hit( this.position );
+
     setTimeout(
         function(){
           self.hit = false;

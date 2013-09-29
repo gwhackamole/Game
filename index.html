@@ -3,40 +3,53 @@
 <head>
   <title>gwhackamole!</title>
   <style>
+    *{
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
     body {
       margin: 0;
       padding: 0;
       background-color: #000000;
     }
+    canvas {
+      max-height: 100%;
+      max-width: 100%;
+    }
   </style>
   <script src="vendor/pixi.dev.js"></script>
-  
+
+  <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, minimum-scale=1,user-scalable=no">
   <script src="js/Board.js"></script>
   <script src="js/Button.js"></script>
+  <script src="js/Config.js"></script>
+  <script src="js/GameOver.js"></script>
+  <script src="js/Loading.js"></script>
   <script src="js/Mole.js"></script>
   <script src="js/Hammer.js"></script>
   <script src="js/ScoreBoard.js"></script>
-  <script src="js/gameOver/stage.js"></script>
 </head>
 <body>
   <script>
+  // initialize rendering
+  var renderer = PIXI.autoDetectRenderer(800, 1280)
+  document.body.appendChild(renderer.view)
   
-  // create an new instance of a pixi stage
+  // start music
+  var audio = new Audio()
+  audio.preload = "metadata"
+  audio.loop = true
+  audio.autoplay = true
+  audio.src = Config.music
+  
+  // setup first game screen (loading)
+  var currentGameScreen = new Loading()
+  
+  requestAnimFrame(animate)
+  
   var previousTime = 0;
-  var interactive = true
-  var stage = new PIXI.Stage(0x000000, interactive);
-  var gameOver = createGameOver();
-  
-  // create a renderer instance
-  var renderer = PIXI.autoDetectRenderer(800, 1280);
-  
-  // add the renderer view element to the DOM
-  document.body.appendChild(renderer.view);
-  
-  var board = new Board(stage)
-
-  requestAnimFrame(animate);
-
   function animate(time) {
     var timeInSeconds = time * 0.001
     var dt = timeInSeconds - previousTime
@@ -46,12 +59,18 @@
     if (dt > 1)
       dt = 1
     
-    var isGameEnd = board.update(timeInSeconds, dt);
-
+    var nextGameScreen = currentGameScreen.update(timeInSeconds, dt)
+    
     // render the stage   
-    renderer.render( isGameEnd ? gameOver : stage );
-
-    requestAnimFrame( animate );
+    currentGameScreen.render(renderer)
+    
+    if (nextGameScreen != null)
+    {
+      // transition from screen to screen
+      currentGameScreen = nextGameScreen
+    }
+    
+    requestAnimFrame(animate)
   }
 
   /**
@@ -67,7 +86,7 @@
     };
     return {
       x: position.x * originalPositions.width + originalPositions.x,
-      y: position.y * originalPositions.height + originalPositions.y,
+      y: position.y * originalPositions.height + originalPositions.y
     };
   }
   </script>

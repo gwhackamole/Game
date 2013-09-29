@@ -1,9 +1,4 @@
 function Mole(pixiStage, virtualPosition) {
-  this.pixiMole = PIXI.Sprite.fromImage('asset/mole.png');
-  var ratio = this.pixiMole.height / this.pixiMole.width;
-  this.pixiMole.height = 150;
-  this.pixiMole.width = this.pixiMole.height / ratio;
-
   this.isHidden = false;
   this.knockedOut = false;
   this.timeWhenHit = null;
@@ -12,15 +7,40 @@ function Mole(pixiStage, virtualPosition) {
     x: virtualPosition.x,
     y: virtualPosition.y,
     yRisenPosition: virtualPosition.y, // Position of the mole when risen
-    yHiddenPosition: virtualPosition.y + 0.05 // Position of the mole when hidden
+    yHiddenPosition: virtualPosition.y + 0.2 // Position of the mole when hidden
   };
 
-  var pixiPosition = doTransform(virtualPosition);
+  this.pixiMole = PIXI.Sprite.fromImage(Config.textures.mole);
+  var moleRatio = this.pixiMole.height / this.pixiMole.width;
+  this.pixiMole.height = 150;
+  this.pixiMole.width = this.pixiMole.height / moleRatio;
+
+  var molePixiPosition = doTransform(virtualPosition);
   this.pixiMole.position = new PIXI.Point(
-    pixiPosition.x, pixiPosition.y
+    molePixiPosition.x, molePixiPosition.y
   );
   this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
+  var myMask = new PIXI.Graphics();
+  myMask.beginFill();
+  myMask.drawElipse(molePixiPosition.x, molePixiPosition.y, 100, 80);
+  myMask.endFill();
+  this.pixiMole.mask = myMask;
 
+  this.pixiHole = PIXI.Sprite.fromImage(Config.textures.hole);
+  var holeRatio = this.pixiHole.height / this.pixiHole.width;
+  this.pixiHole.width = this.pixiMole.width * 1.5;
+  this.pixiHole.height = this.pixiHole.width * holeRatio;
+  this.pixiHole.anchor = new PIXI.Point(0.5, 1);
+  var holeVirtualPosition = {
+    x: this.molePositions.x,
+    y: this.molePositions.yHiddenPosition
+  };
+  var pixiHolePosition = doTransform(holeVirtualPosition);
+  this.pixiHole.position = new PIXI.Point(
+    pixiHolePosition.x, pixiHolePosition.y
+  );
+
+  pixiStage.addChild(this.pixiHole);
   pixiStage.addChild(this.pixiMole);
 }
 

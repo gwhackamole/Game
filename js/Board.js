@@ -1,12 +1,15 @@
-function Board(stage)
+function Board()
 {
-  var boardBG = PIXI.Texture.fromImage("asset/board.png");
+  var interactive = true
+  this.stage = new PIXI.Stage(0x000000, interactive)
+  
+  var boardBG = PIXI.Texture.fromImage(Config.textures.background)
   var board = new PIXI.Sprite(boardBG);
-  stage.addChild(board);
+  this.stage.addChild(board);
 
-  var score = this.score = new ScoreBoard(stage, this);
+  this.score = new ScoreBoard(this.stage, this);
 
-  this.hammer = new Hammer(stage,this)
+  this.hammer = new Hammer(this.stage,this)
 
   this.moles = []
   this.buttons = []
@@ -16,41 +19,20 @@ function Board(stage)
       x: i % 3 ? ((i + 1) % 3 ? 0.25 : 0.5) : 0.75,
       y: i <= 3 ? 0.25 : (i <= 6 ? 0.5 : 0.75)
     }
-    var mole = new Mole(stage, moleVirtualPosition);
+    var mole = new Mole(this.stage, moleVirtualPosition);
     this.moles.push(mole)
 
     var buttonPosition = {
       x: 100 + i * 60,
       y: 1010
     }
-    var button = new Button(stage, mole, buttonPosition);
+    var button = new Button(this.stage, mole, buttonPosition);
     this.buttons.push(button)
   }
-
-  this.text = new PIXI.Text("Whack it!")
-  this.text.setInteractive(true)
-  stage.addChild(this.text)
-  
-  this.text.touchstart = function(touchData)
-  {
-  }
-  
-  this.text.touchend = function(touchData)
-  {
-  }
-  
-  // background music
-  var audio = new Audio()
-  audio.src = "asset/gwhackamole.ogg"
-  audio.loop = true
-  audio.play()
 }
 
 Board.prototype.update = function(time, dt)
 {
-  this.text.position.x = Math.sin(time) * 100 + 200
-  this.text.position.y = 200
-  
   // update buttons
   for (var i = 0; i < this.buttons.length; i++)
   {
@@ -66,12 +48,15 @@ Board.prototype.update = function(time, dt)
   this.hammer.update(time, dt)
   this.score.update(time, dt)
 
-  return this.score.time <= 0;
+  if (this.score.time <= 0)
+    return new GameOver(this.score)
+  
+  return null
 }
 
-Board.prototype.hit = function(){
+Board.prototype.hit = function( position ){
     this.moles.filter(function(m){
-        return m.isHittable()
+        return m.isHittable() && distance( m.molePositions, position ) < 0.1;
     }).forEach(function(m){
         m.hit()
     })
@@ -81,4 +66,9 @@ Board.prototype.countScoringMoles = function(){
     return this.moles.filter( function(m){ 
         return !m.knockedOut && !m.isHidden;
     }).length;
+}
+
+Board.prototype.render = function(renderer)
+{
+  renderer.render(this.stage)
 }
