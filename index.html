@@ -81,12 +81,12 @@
    * And returns another object with x, y transformed
    */
   function projectVirtualPosition(position, yoffset) {
-    var projectionCenter = vec2.clone([400, -200])
+    var projectionCenter = vec2.clone([400, 0])
     var projectionScale = vec2.clone([500, -600])
     
     var zStart = 1
     var zEnd = 2
-    var planeHeight = -2
+    var planeHeight = -1.6
     
     if (!yoffset)
       yoffset = 0

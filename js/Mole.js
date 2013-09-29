@@ -5,8 +5,8 @@ function Mole(pixiStage, virtualPosition) {
   this.molePositions = {
     x: virtualPosition.x,
     y: virtualPosition.y,
-    yRisenPosition: virtualPosition.y, // Position of the mole when risen
-    yHiddenPosition: virtualPosition.y + 0.2 // Position of the mole when hidden
+    yRisenPosition: virtualPosition.y - 0.1, // Position of the mole when risen
+    yHiddenPosition: virtualPosition.y // Position of the mole when hidden
   };
 
   this.pixiMole = PIXI.Sprite.fromImage(Config.textures.mole);
@@ -17,16 +17,16 @@ function Mole(pixiStage, virtualPosition) {
   var projection = projectVirtualPosition(virtualPosition);
   this.pixiMole.position = projection.position
   this.pixiMole.scale = projection.scale
-  this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
+  this.pixiMole.anchor = new PIXI.Point(0.5, 0.1);
   var myMask = new PIXI.Graphics();
   myMask.beginFill();
   myMask.drawRect(
-    this.pixiMole.position.x - this.pixiMole.width / 2,
-    this.pixiMole.position.y - this.pixiMole.height / 2,
-    this.pixiMole.width,
-    this.pixiMole.height
+    this.pixiMole.position.x - this.pixiMole.width * this.pixiMole.scale.x / 2,
+    this.pixiMole.position.y - this.pixiMole.height * this.pixiMole.scale.y / 2,
+    this.pixiMole.width * this.pixiMole.scale.x,
+    this.pixiMole.height * this.pixiMole.scale.y * 0.5
   )
-  myMask.drawElipse(projection.position.x, projection.position.y, 120, 100);
+  myMask.drawElipse(projection.position.x, projection.position.y, 120 * this.pixiMole.scale.x, 50 * this.pixiMole.scale.y);
   myMask.endFill();
   this.pixiMole.mask = myMask;
 
@@ -34,14 +34,14 @@ function Mole(pixiStage, virtualPosition) {
   var holeRatio = this.pixiHole.height / this.pixiHole.width;
   this.pixiHole.width = this.pixiMole.width * 1.5;
   this.pixiHole.height = this.pixiHole.width * holeRatio;
-  this.pixiHole.anchor = new PIXI.Point(0.5, 1);
-  var holeVirtualPosition = {
+  this.pixiHole.anchor = new PIXI.Point(0.5, 0.5);
+  /*var holeVirtualPosition = {
     x: this.molePositions.x,
     y: this.molePositions.yHiddenPosition
   };
-  var projection = projectVirtualPosition(holeVirtualPosition);
-  this.pixiHole.position = projection.position
-  this.pixiHole.scale = projection.scale
+  var projection = projectVirtualPosition(holeVirtualPosition);*/
+  this.pixiHole.position = new PIXI.Point(projection.position.x, projection.position.y)
+  this.pixiHole.scale = new PIXI.Point(projection.scale.x, projection.scale.y)
 
   pixiStage.addChild(this.pixiHole);
   pixiStage.addChild(this.pixiMole);
