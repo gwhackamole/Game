@@ -12,7 +12,7 @@ function Mole(pixiStage, virtualPosition) {
     x: virtualPosition.x,
     y: virtualPosition.y,
     yRisenPosition: virtualPosition.y, // Position of the mole when risen
-    yHiddenPosition: virtualPosition.y + 0.05 // Position of the mole when hidden
+    yHiddenPosition: virtualPosition.y + 0.2 // Position of the mole when hidden
   };
 
   var pixiPosition = doTransform(virtualPosition);
@@ -20,6 +20,11 @@ function Mole(pixiStage, virtualPosition) {
     pixiPosition.x, pixiPosition.y
   );
   this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
+  var myMask = new PIXI.Graphics();
+  myMask.beginFill();
+  myMask.drawElipse(pixiPosition.x, pixiPosition.y, 100, 80);
+  myMask.endFill();
+  this.pixiMole.mask = myMask;
 
   pixiStage.addChild(this.pixiMole);
 }
