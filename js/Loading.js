@@ -10,6 +10,8 @@ function Loading()
   this.loadingText.anchor.y = 0.5
   this.stage.addChild(this.loadingText)
   
+  this.playRequested = false
+  
   var self = this
   
   // preload assets before starting the game
@@ -19,25 +21,40 @@ function Loading()
     textures.push(Config.textures[name])
   }
   
-  var assetLoader = new PIXI.AssetLoader(textures)
-  assetLoader.onComplete = function()
+  function loadingFinished()
   {
-    // signal the loading end
-    self.loadingFinished = true
+    // remove loading text
+    self.stage.removeChild(self.loadingText)
+    
+    // add play button
+    var playTexture = PIXI.Texture.fromImage(Config.textures.playButton)
+    var playButton = new PIXI.Sprite(playTexture)
+    playButton.buttonMode = true;
+    playButton.anchor.x = 0.5
+    playButton.anchor.y = 0.5
+    playButton.position.x = 400
+    playButton.position.y = 640
+    playButton.interactive = true
+    self.stage.addChild(playButton)
+    
+    playButton.mousedown = playButton.touchstart = function()
+    {
+      self.playRequested = true
+    }
   }
+  
+  var assetLoader = new PIXI.AssetLoader(textures)
+  assetLoader.onComplete = loadingFinished
   assetLoader.load()
   
   // debug timer, uncomment to test with fixed loading time
-  /*setTimeout(function()
-  {
-    self.loadingFinished = true
-  }, 2000)*/
+  //setTimeout(loadingFinished, 2000)
 }
 
 Loading.prototype.update = function(time, dt)
 {
   // transition to board when the loading is done
-  if (this.loadingFinished)
+  if (this.playRequested)
     return new Board()
   
   this.loadingText.rotation += dt
