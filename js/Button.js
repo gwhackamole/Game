@@ -23,7 +23,7 @@ function Button( pixiStage, mole, position ){
     this.setTexture(t.off);
   };
 
-  button.mouseupoutside = button.touchend  = function(){
+  button.mouseupoutside = button.touchendoutside = function(){
     mole.rise();
     this.setTexture(t.off);
   }
