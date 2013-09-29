@@ -7,10 +7,10 @@ function Button( pixiStage, mole, position ){
 
   // create pixi object for button 
   var button = new PIXI.Sprite(t.off); 
-  button.anchor.x = 0;
-  button.anchor.y = 0;
   button.position.x = position.x;
   button.position.y = position.y;
+  button.anchor.x = 0.5;
+  button.anchor.y = 0.5;
   button.interactive = true;
 
   button.mousedown = button.touchstart = function(){

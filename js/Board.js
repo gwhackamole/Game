@@ -9,7 +9,6 @@ function Board()
 
   this.score = new ScoreBoard(this.stage, this);
 
-  this.hammer = new Hammer(this.stage,this)
 
   this.moles = []
   this.buttons = []
@@ -23,12 +22,13 @@ function Board()
     this.moles.push(mole)
 
     var buttonPosition = {
-      x: i % 3 ? ((i + 1) % 3 ? 310 : 380) : 450,
+      x: i % 3 ? ((i + 1) % 3 ? 300 : 400) : 500,
       y: i <= 3 ? 1085 : (i <= 6 ? 1155 : 1225)
     }
     var button = new Button(this.stage, mole, buttonPosition);
     this.buttons.push(button)
   }
+  this.hammer = new Hammer(this.stage,this)
 }
 
 Board.prototype.update = function(time, dt)
@@ -50,6 +50,8 @@ Board.prototype.update = function(time, dt)
 
   if (this.score.time <= 0)
     return new GameOver(this.score)
+
+  //Re-order objects 
   
   return null
 }
