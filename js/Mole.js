@@ -22,7 +22,13 @@ function Mole(pixiStage, virtualPosition) {
   this.pixiMole.anchor = new PIXI.Point(0.5, 0.5);
   var myMask = new PIXI.Graphics();
   myMask.beginFill();
-  myMask.drawElipse(molePixiPosition.x, molePixiPosition.y, 100, 80);
+  myMask.drawRect(
+    this.pixiMole.position.x - this.pixiMole.width / 2,
+    this.pixiMole.position.y - this.pixiMole.height / 2,
+    this.pixiMole.width,
+    this.pixiMole.height
+  )
+  myMask.drawElipse(molePixiPosition.x, molePixiPosition.y, 120, 100);
   myMask.endFill();
   this.pixiMole.mask = myMask;
 
