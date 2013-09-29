@@ -38,8 +38,12 @@ function Hammer(pixiStage,board)
 
 Hammer.prototype.update = function(time, dt, score) {
     var mole = this.getTargetedMole()
-    if( mole )
+    if( mole ) {
+      if (distance(this.position,mole.molePositions) < 0.03) {
+        setTimeout(this.activate.bind(this), 50);
+      }
       this.moveToClosestMole(dt, mole)
+    }
     else 
       this.moveRandomly( dt, time );
     
@@ -93,11 +97,11 @@ Hammer.prototype.getTargetedMole = function(){
 Hammer.prototype.moveToClosestMole = function(dt,nextMole){
     var molePosition = {
       x: nextMole.molePositions.x,
-      y: nextMole.molePositions.yHiddenPosition,
+      y: nextMole.molePositions.yRisenPosition,
     }
     var direction = vec2subtract(molePosition, this.position)
     var length = distance(molePosition, this.position)
-
+    length = length > 0.005 ? length : 1; // Prevent jumps over the target
     var normalizedDirection = {
         x: direction.x / length || 0,
         y: direction.y / length || 0
