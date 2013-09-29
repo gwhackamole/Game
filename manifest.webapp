@@ -1,0 +1,20 @@
+{
+	"version": "0.5",
+	"name": "Gwhack-a-Mole",
+	"description": "Whack-a-Mole, with a twist",
+	"launch_path": "/index.html",
+	"orientation": "landscape",
+	"icons": {
+		"16": "/asset/icon16.png",
+		"48": "/asset/icon48.png",
+		"128": "/asset/icon128.png"
+	},
+	"developer": {
+		"name": "Gwhackamole",
+		"url": "https://github.com/gwhackamole/Game"
+	},
+	"installs_allowed_from": ["*"],
+	"default_locale": "en",
+	"permissions": {
+	}
+}
