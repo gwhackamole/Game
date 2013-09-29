@@ -99,7 +99,7 @@ Hammer.prototype.moveToClosestMole = function(dt,nextMole){
     }
     var direction = vec2subtract(molePosition, this.position)
     var length = distance(molePosition, this.position)
-
+    length = length > 0.005 ? length : 1; // Prevent jumps over the target
     var normalizedDirection = {
         x: direction.x / length || 0,
         y: direction.y / length || 0
