@@ -40,7 +40,7 @@ function Loading()
     playButton.anchor.x = 0.5
     playButton.anchor.y = 0.5
     playButton.position.x = 400
-    playButton.position.y = 640
+    playButton.position.y = 1100
     playButton.interactive = true
     self.stage.addChild(playButton)
     

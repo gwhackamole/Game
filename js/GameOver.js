@@ -27,7 +27,7 @@ function GameOver(score)
   retryButton.anchor.x = 0.5
   retryButton.anchor.y = 0.5
   retryButton.position.x = 400
-  retryButton.position.y = 800
+  retryButton.position.y = 1100
   retryButton.interactive = true
   this.stage.addChild(retryButton)
   
